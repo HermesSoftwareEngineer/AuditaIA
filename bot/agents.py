@@ -1,1 +1,0 @@
-from langchain_google_vertexai import ChatVertexAI
