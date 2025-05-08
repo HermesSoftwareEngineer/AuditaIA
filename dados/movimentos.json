@@ -1,0 +1,1706 @@
+{
+  "quantidade": 14,
+  "lista": [
+    {
+      "codigo": 93436,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 3,
+      "tipocliente": "Cliente",
+      "codigocliente": 4500,
+      "nomecliente": "FERNANDA ROCHELLE SILVEIRA",
+      "codigocontratoaluguel": 0,
+      "codigocontratovenda": 0,
+      "codigoimovel": 0,
+      "numerodocumento": "173417",
+      "historico": "REF A HONORARIOS JURIDICOS STYLUS - Parcela 7/12",
+      "linhadigitavel": "",
+      "datahorainclusao": "30/07/2024",
+      "datahoraultimaalteracao": "30/07/2024",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "",
+      "saldo": "-1.734,17",
+      "detalhes": [
+        {
+          "codigodetalhe": 474167,
+          "codigoplanoconta": 59,
+          "nomeplanoconta": "Honorários advocatícios",
+          "codigocontabilplanoconta": "2.4.14",
+          "descricao": "",
+          "observacao": "",
+          "valor": "-1.734,17",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [],
+      "repasses": []
+    },
+    {
+      "codigo": 93480,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 3,
+      "tipocliente": "Fornecedor",
+      "codigocliente": 4506,
+      "nomecliente": "HCA SOLUCOES EM SEGURANÇA E SERVIÇOS LTDA",
+      "codigocontratoaluguel": 0,
+      "codigocontratovenda": 0,
+      "codigoimovel": 0,
+      "numerodocumento": "20240700381",
+      "historico": "REF A CAMERAS  - Parcela 7/12",
+      "linhadigitavel": "00190000090 3 48606800400 0 18591172797 9 50000028577",
+      "datahorainclusao": "31/07/2024",
+      "datahoraultimaalteracao": "06/02/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "06/02/2025",
+      "saldo": "-285,77",
+      "detalhes": [
+        {
+          "codigodetalhe": 474326,
+          "codigoplanoconta": 62,
+          "nomeplanoconta": "Manutenção equipamentos",
+          "codigocontabilplanoconta": "2.4.17",
+          "descricao": "",
+          "observacao": "",
+          "valor": "-285,77",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "06/02/2025",
+          "valor": "-285,77",
+          "codigoboleto": 0,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+        }
+      ],
+      "repasses": []
+    },
+    {
+      "codigo": 93492,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 3,
+      "tipocliente": "Fornecedor",
+      "codigocliente": 4507,
+      "nomecliente": "TECSEG TEC EM SEGURANÇA ELETRONICA LTDA ME",
+      "codigocontratoaluguel": 0,
+      "codigocontratovenda": 0,
+      "codigoimovel": 0,
+      "numerodocumento": "202407022181",
+      "historico": "REF A CAMERAS  - Parcela 7/12",
+      "linhadigitavel": "00190.0000-9 02257.09800-0 00040.58217-3 9 97950000016016",
+      "datahorainclusao": "31/07/2024",
+      "datahoraultimaalteracao": "06/02/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "06/02/2025",
+      "saldo": "-160,16",
+      "detalhes": [
+        {
+          "codigodetalhe": 474338,
+          "codigoplanoconta": 62,
+          "nomeplanoconta": "Manutenção equipamentos",
+          "codigocontabilplanoconta": "2.4.17",
+          "descricao": "",
+          "observacao": "",
+          "valor": "-160,16",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "06/02/2025",
+          "valor": "-160,16",
+          "codigoboleto": 0,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+        }
+      ],
+      "repasses": []
+    },
+    {
+      "codigo": 107399,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 3373,
+      "nomecliente": "BIANCA SILVA PAIVA",
+      "codigocontratoaluguel": 330,
+      "codigocontratovenda": 0,
+      "codigoimovel": 271,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/01/2025 a 31/01/2025",
+      "linhadigitavel": "",
+      "datahorainclusao": "01/11/2024",
+      "datahoraultimaalteracao": "17/03/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "03/02/2025",
+      "saldo": "1.092,89",
+      "detalhes": [
+        {
+          "codigodetalhe": 549159,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+          "observacao": "",
+          "valor": "639,66",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 549234,
+          "codigoplanoconta": 18,
+          "nomeplanoconta": "Taxas boleto",
+          "codigocontabilplanoconta": "1.1.7",
+          "descricao": "Tarifa bancária",
+          "observacao": "",
+          "valor": "2,90",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 581864,
+          "codigoplanoconta": 119,
+          "nomeplanoconta": "Condomínio",
+          "codigocontabilplanoconta": "7.1.3",
+          "descricao": "REF. A CONDOMINIO",
+          "observacao": "",
+          "valor": "370,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 617692,
+          "codigoplanoconta": 120,
+          "nomeplanoconta": "Iptu",
+          "codigocontabilplanoconta": "7.1.4",
+          "descricao": "REF. A IPTU  - parcela 1/3",
+          "observacao": "",
+          "valor": "80,33",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "03/02/2025",
+          "valor": "1.092,89",
+          "codigoboleto": 6005,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, nosso nº 0000106005-0, quitado - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 1933,
+          "nomecliente": "LUIZA MARIA MACIEL VASCONCELOS",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-575,69",
+          "detalhes": [
+            {
+              "codigodetalhe": 549160,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+              "observacao": "",
+              "valor": "-639,66",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 549233,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "63,97",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-3.575,14",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | CEF, ag. 0619-0, conta 4139228"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3200,
+          "nomecliente": "SEFIN",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "07/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-80,33",
+          "detalhes": [
+            {
+              "codigodetalhe": 617689,
+              "codigoplanoconta": 139,
+              "nomeplanoconta": "Iptu",
+              "codigocontabilplanoconta": "10.1.4",
+              "descricao": "REF. A IPTU  - parcela 1/3 - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-80,33",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-74.189,39",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 5007,
+          "nomecliente": "EDIFICIO ROBERTO JORGE",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "05/02/2025",
+          "datapagamento": "05/02/2025",
+          "saldo": "-370,00",
+          "detalhes": [
+            {
+              "codigodetalhe": 581847,
+              "codigoplanoconta": 138,
+              "nomeplanoconta": "Condomínio",
+              "codigocontabilplanoconta": "10.1.3",
+              "descricao": "REF. A CONDOMINIO - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-370,00",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "05/02/2025",
+              "valor": "-370,00",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 113253,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 1426,
+      "nomecliente": "ISABELA TALITA DA SILVA FONTENELE",
+      "codigocontratoaluguel": 318,
+      "codigocontratovenda": 0,
+      "codigoimovel": 445,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/01/2025 a 31/01/2025",
+      "linhadigitavel": "",
+      "datahorainclusao": "01/01/2025",
+      "datahoraultimaalteracao": "17/03/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "31/01/2025",
+      "saldo": "3.112,53",
+      "detalhes": [
+        {
+          "codigodetalhe": 582979,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+          "observacao": "",
+          "valor": "1.066,30",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 582982,
+          "codigoplanoconta": 119,
+          "nomeplanoconta": "Condomínio",
+          "codigocontabilplanoconta": "7.1.3",
+          "descricao": "REF. A CONDOMINIO",
+          "observacao": "",
+          "valor": "1.820,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 583034,
+          "codigoplanoconta": 18,
+          "nomeplanoconta": "Taxas boleto",
+          "codigocontabilplanoconta": "1.1.7",
+          "descricao": "Tarifa bancária",
+          "observacao": "",
+          "valor": "2,90",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 583035,
+          "codigoplanoconta": 124,
+          "nomeplanoconta": "Seguro incêndio",
+          "codigocontabilplanoconta": "7.1.8",
+          "descricao": "Seguro incêndio - parcela 3/3",
+          "observacao": "",
+          "valor": "103,33",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 611264,
+          "codigoplanoconta": 120,
+          "nomeplanoconta": "Iptu",
+          "codigocontabilplanoconta": "7.1.4",
+          "descricao": "REF. A IPTU  - parcela 1/11",
+          "observacao": "",
+          "valor": "120,00",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "31/01/2025",
+          "valor": "3.112,53",
+          "codigoboleto": 6007,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, nosso nº 0000106007-7, quitado - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 1752,
+          "nomecliente": "JURACI MOURAO LOPES",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-765,67",
+          "detalhes": [
+            {
+              "codigodetalhe": 582980,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+              "observacao": "",
+              "valor": "-1.066,30",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 583033,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "106,63",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 583036,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Condomínio",
+              "observacao": "",
+              "valor": "182,00",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 611285,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Iptu",
+              "observacao": "",
+              "valor": "12,00",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-7.968,82",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | BB, ag. 4732-5, conta 6039980-5"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3200,
+          "nomecliente": "SEFIN",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "07/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-120,00",
+          "detalhes": [
+            {
+              "codigodetalhe": 611263,
+              "codigoplanoconta": 139,
+              "nomeplanoconta": "Iptu",
+              "codigocontabilplanoconta": "10.1.4",
+              "descricao": "REF. A IPTU  - parcela 1/11 - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-120,00",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-74.189,39",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3311,
+          "nomecliente": "Edificio Cristal III",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "05/02/2025",
+          "datapagamento": "05/02/2025",
+          "saldo": "-1.820,00",
+          "detalhes": [
+            {
+              "codigodetalhe": 582981,
+              "codigoplanoconta": 138,
+              "nomeplanoconta": "Condomínio",
+              "codigocontabilplanoconta": "10.1.3",
+              "descricao": "REF. A CONDOMINIO - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-1.820,00",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "05/02/2025",
+              "valor": "-1.820,00",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 116722,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 3836,
+      "nomecliente": "ANTONIA LÚCIA MATOS DA CRUZ",
+      "codigocontratoaluguel": 363,
+      "codigocontratovenda": 0,
+      "codigoimovel": 301,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/01/2025 a 31/01/2025",
+      "linhadigitavel": "",
+      "datahorainclusao": "07/01/2025",
+      "datahoraultimaalteracao": "17/03/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "03/02/2025",
+      "saldo": "1.517,29",
+      "detalhes": [
+        {
+          "codigodetalhe": 601468,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+          "observacao": "",
+          "valor": "1.000,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 601493,
+          "codigoplanoconta": 119,
+          "nomeplanoconta": "Condomínio",
+          "codigocontabilplanoconta": "7.1.3",
+          "descricao": "Condomínio",
+          "observacao": "",
+          "valor": "250,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 601494,
+          "codigoplanoconta": 18,
+          "nomeplanoconta": "Taxas boleto",
+          "codigocontabilplanoconta": "1.1.7",
+          "descricao": "Taxas boleto",
+          "observacao": "",
+          "valor": "2,90",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 601899,
+          "codigoplanoconta": 124,
+          "nomeplanoconta": "Seguro incêndio",
+          "codigocontabilplanoconta": "7.1.8",
+          "descricao": "Seguro incêndio - parcela 1/3",
+          "observacao": "",
+          "valor": "106,33",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 609419,
+          "codigoplanoconta": 808,
+          "nomeplanoconta": "CAGECE",
+          "codigocontabilplanoconta": "1.1.13",
+          "descricao": "CAGECE",
+          "observacao": "",
+          "valor": "68,29",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 609439,
+          "codigoplanoconta": 809,
+          "nomeplanoconta": "GÁS",
+          "codigocontabilplanoconta": "7.2",
+          "descricao": "GÁS",
+          "observacao": "",
+          "valor": "0,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 618016,
+          "codigoplanoconta": 120,
+          "nomeplanoconta": "Iptu",
+          "codigocontabilplanoconta": "7.1.4",
+          "descricao": "REF A IPTU - parcela 1/7",
+          "observacao": "",
+          "valor": "89,77",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "03/02/2025",
+          "valor": "1.517,29",
+          "codigoboleto": 6004,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, nosso nº 0000106004-2, quitado - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 2643,
+          "nomecliente": "RAQUEL DE BRITO MENDES",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-891,02",
+          "detalhes": [
+            {
+              "codigodetalhe": 601469,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+              "observacao": "",
+              "valor": "-1.000,00",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 601492,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "100,00",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 618029,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Iptu",
+              "observacao": "",
+              "valor": "8,98",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-891,02",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Santander, ag. 2051, conta 01055175-6"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3200,
+          "nomecliente": "SEFIN",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "07/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-89,77",
+          "detalhes": [
+            {
+              "codigodetalhe": 618015,
+              "codigoplanoconta": 139,
+              "nomeplanoconta": "Iptu",
+              "codigocontabilplanoconta": "10.1.4",
+              "descricao": "REF A IPTU - parcela 1/7 - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-89,77",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-74.189,39",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 117295,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 3444,
+      "nomecliente": "JOSE COSME MANGABEIRA",
+      "codigocontratoaluguel": 337,
+      "codigocontratovenda": 0,
+      "codigoimovel": 407,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/01/2025 a 31/01/2025",
+      "linhadigitavel": "",
+      "datahorainclusao": "13/01/2025",
+      "datahoraultimaalteracao": "17/03/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "03/02/2025",
+      "saldo": "732,01",
+      "detalhes": [
+        {
+          "codigodetalhe": 603097,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+          "observacao": "",
+          "valor": "337,86",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 603122,
+          "codigoplanoconta": 18,
+          "nomeplanoconta": "Taxas boleto",
+          "codigocontabilplanoconta": "1.1.7",
+          "descricao": "Taxas boleto",
+          "observacao": "",
+          "valor": "2,90",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 603123,
+          "codigoplanoconta": 119,
+          "nomeplanoconta": "Condomínio",
+          "codigocontabilplanoconta": "7.1.3",
+          "descricao": "Condomínio",
+          "observacao": "",
+          "valor": "302,49",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 623839,
+          "codigoplanoconta": 120,
+          "nomeplanoconta": "Iptu",
+          "codigocontabilplanoconta": "7.1.4",
+          "descricao": "ref ao IPTU - parcela 1/2",
+          "observacao": "",
+          "valor": "88,76",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "03/02/2025",
+          "valor": "732,01",
+          "codigoboleto": 6008,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, nosso nº 0000106008-5, quitado - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3200,
+          "nomecliente": "SEFIN",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "07/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-88,76",
+          "detalhes": [
+            {
+              "codigodetalhe": 623837,
+              "codigoplanoconta": 139,
+              "nomeplanoconta": "Iptu",
+              "codigocontabilplanoconta": "10.1.4",
+              "descricao": "ref ao IPTU - parcela 1/2 - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-88,76",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-74.189,39",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 7720,
+          "nomecliente": "RICARDO SILVA BRAGA",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-310,83",
+          "detalhes": [
+            {
+              "codigodetalhe": 603098,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+              "observacao": "",
+              "valor": "-337,86",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 603121,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "27,03",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-2.206,52",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Bradesco, ag. 7737, conta 5537-9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 118980,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 1975,
+      "nomecliente": "MARA MICHELLE CYRINO MATTHEWS",
+      "codigocontratoaluguel": 126,
+      "codigocontratovenda": 0,
+      "codigoimovel": 218,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/01/2025 a 31/01/2025",
+      "linhadigitavel": "",
+      "datahorainclusao": "16/01/2025",
+      "datahoraultimaalteracao": "17/03/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "03/02/2025",
+      "saldo": "1.769,13",
+      "detalhes": [
+        {
+          "codigodetalhe": 613847,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+          "observacao": "",
+          "valor": "1.034,68",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 613872,
+          "codigoplanoconta": 18,
+          "nomeplanoconta": "Taxas boleto",
+          "codigocontabilplanoconta": "1.1.7",
+          "descricao": "Tarifa bancária",
+          "observacao": "",
+          "valor": "2,90",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 613873,
+          "codigoplanoconta": 119,
+          "nomeplanoconta": "Condomínio",
+          "codigocontabilplanoconta": "7.1.3",
+          "descricao": "Condomínio",
+          "observacao": "",
+          "valor": "650,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 624099,
+          "codigoplanoconta": 120,
+          "nomeplanoconta": "Iptu",
+          "codigocontabilplanoconta": "7.1.4",
+          "descricao": "REF A IPTU - parcela 1/11",
+          "observacao": "",
+          "valor": "81,55",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "03/02/2025",
+          "valor": "1.769,13",
+          "codigoboleto": 6009,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, nosso nº 0000106009-3, quitado - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3200,
+          "nomecliente": "SEFIN",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "07/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-81,55",
+          "detalhes": [
+            {
+              "codigodetalhe": 624088,
+              "codigoplanoconta": 139,
+              "nomeplanoconta": "Iptu",
+              "codigocontabilplanoconta": "10.1.4",
+              "descricao": "REF A IPTU - parcela 1/11 - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-81,55",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-74.189,39",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 7720,
+          "nomecliente": "RICARDO SILVA BRAGA",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-951,91",
+          "detalhes": [
+            {
+              "codigodetalhe": 613848,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+              "observacao": "",
+              "valor": "-1.034,68",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 613871,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "82,77",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-30.063,61",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Bradesco, ag. 7737, conta 5537-9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 119816,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 3672,
+      "nomecliente": "EDILENE SOUSA DE MOURA",
+      "codigocontratoaluguel": 349,
+      "codigocontratovenda": 0,
+      "codigoimovel": 214,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/01/2025 a 31/01/2025",
+      "linhadigitavel": "",
+      "datahorainclusao": "16/01/2025",
+      "datahoraultimaalteracao": "26/03/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "31/01/2025",
+      "saldo": "1.096,54",
+      "detalhes": [
+        {
+          "codigodetalhe": 620304,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+          "observacao": "",
+          "valor": "650,44",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 620329,
+          "codigoplanoconta": 18,
+          "nomeplanoconta": "Taxas boleto",
+          "codigocontabilplanoconta": "1.1.7",
+          "descricao": "Taxas boleto",
+          "observacao": "",
+          "valor": "2,90",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 620330,
+          "codigoplanoconta": 119,
+          "nomeplanoconta": "Condomínio",
+          "codigocontabilplanoconta": "7.1.3",
+          "descricao": "Condomínio",
+          "observacao": "",
+          "valor": "200,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 620332,
+          "codigoplanoconta": 124,
+          "nomeplanoconta": "Seguro incêndio",
+          "codigocontabilplanoconta": "7.1.8",
+          "descricao": "Seguro incêndio - parcela 2/3",
+          "observacao": "",
+          "valor": "63,35",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 623814,
+          "codigoplanoconta": 120,
+          "nomeplanoconta": "Iptu",
+          "codigocontabilplanoconta": "7.1.4",
+          "descricao": "REF A IPTU - parcela 1/5",
+          "observacao": "",
+          "valor": "37,49",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 624956,
+          "codigoplanoconta": 808,
+          "nomeplanoconta": "CAGECE",
+          "codigocontabilplanoconta": "1.1.13",
+          "descricao": "CAGECE",
+          "observacao": "",
+          "valor": "142,36",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "31/01/2025",
+          "valor": "1.096,54",
+          "codigoboleto": 6006,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, nosso nº 0000106006-9, quitado - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3200,
+          "nomecliente": "SEFIN",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "07/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-37,49",
+          "detalhes": [
+            {
+              "codigodetalhe": 623809,
+              "codigoplanoconta": 139,
+              "nomeplanoconta": "Iptu",
+              "codigocontabilplanoconta": "10.1.4",
+              "descricao": "REF A IPTU - parcela 1/5 - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-37,49",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-74.189,39",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 3201,
+          "nomecliente": "GERMANA SILVA BRAGA",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-598,40",
+          "detalhes": [
+            {
+              "codigodetalhe": 620305,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+              "observacao": "",
+              "valor": "-650,44",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 620328,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "52,04",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-16.777,43",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Itaú, ag. 4097, conta 00928-8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 123379,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 4038,
+      "nomecliente": "TARCILLA RIBEIRO PINTO NOGUEIRA",
+      "codigocontratoaluguel": 372,
+      "codigocontratovenda": 0,
+      "codigoimovel": 389,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/01/2025 a 31/01/2025",
+      "linhadigitavel": "",
+      "datahorainclusao": "01/02/2025",
+      "datahoraultimaalteracao": "17/03/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "03/02/2025",
+      "saldo": "5.467,71",
+      "detalhes": [
+        {
+          "codigodetalhe": 639911,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+          "observacao": "",
+          "valor": "4.000,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 639958,
+          "codigoplanoconta": 119,
+          "nomeplanoconta": "Condomínio",
+          "codigocontabilplanoconta": "7.1.3",
+          "descricao": "Condomínio",
+          "observacao": "",
+          "valor": "1.340,00",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 639959,
+          "codigoplanoconta": 18,
+          "nomeplanoconta": "Taxas boleto",
+          "codigocontabilplanoconta": "1.1.7",
+          "descricao": "Taxas boleto",
+          "observacao": "",
+          "valor": "2,90",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 642834,
+          "codigoplanoconta": 120,
+          "nomeplanoconta": "Iptu",
+          "codigocontabilplanoconta": "7.1.4",
+          "descricao": "REF A IPTU - parcela 1/11",
+          "observacao": "",
+          "valor": "124,81",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "03/02/2025",
+          "valor": "5.467,71",
+          "codigoboleto": 0,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 1170,
+          "nomecliente": "FRANCISCO JOSE FEIJO DE ALBUQUERQUE",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-3.587,52",
+          "detalhes": [
+            {
+              "codigodetalhe": 639912,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/01/2025 a 31/01/2025",
+              "observacao": "",
+              "valor": "-4.000,00",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 639957,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "400,00",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 642855,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Iptu",
+              "observacao": "",
+              "valor": "12,48",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-3.587,52",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: Poupança | CEF, ag. 1469, conta 2142-5"
+            }
+          ]
+        },
+        {
+          "tipocliente": "Fornecedor",
+          "codigocliente": 3200,
+          "nomecliente": "SEFIN",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "07/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "-124,81",
+          "detalhes": [
+            {
+              "codigodetalhe": 642833,
+              "codigoplanoconta": 139,
+              "nomeplanoconta": "Iptu",
+              "codigocontabilplanoconta": "10.1.4",
+              "descricao": "REF A IPTU - parcela 1/11 - Ref. envolvido 'locatário'",
+              "observacao": "",
+              "valor": "-124,81",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Boleto",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-74.189,39",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 123400,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 8109,
+      "nomecliente": "AKZA DA SILVA VIEIRA SOLANO",
+      "codigocontratoaluguel": 445,
+      "codigocontratovenda": 0,
+      "codigoimovel": 544,
+      "numerodocumento": "",
+      "historico": "Caução",
+      "linhadigitavel": "",
+      "datahorainclusao": "03/02/2025",
+      "datahoraultimaalteracao": "03/02/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "01/02/2025",
+      "saldo": "9.000,00",
+      "detalhes": [
+        {
+          "codigodetalhe": 640214,
+          "codigoplanoconta": 804,
+          "nomeplanoconta": "Caução",
+          "codigocontabilplanoconta": "1.1.11",
+          "descricao": "Caução",
+          "observacao": "",
+          "valor": "9.000,00",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Pix",
+          "situacao": "Quitado",
+          "data": "01/02/2025",
+          "valor": "9.576,32",
+          "codigoboleto": 0,
+          "codigotransferencia": 0,
+          "resumo": "Pix - destino: Bradesco Stylus"
+        }
+      ],
+      "repasses": []
+    },
+    {
+      "codigo": 123401,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 8109,
+      "nomecliente": "AKZA DA SILVA VIEIRA SOLANO",
+      "codigocontratoaluguel": 445,
+      "codigocontratovenda": 0,
+      "codigoimovel": 544,
+      "numerodocumento": "",
+      "historico": "Seguro incêndio",
+      "linhadigitavel": "",
+      "datahorainclusao": "03/02/2025",
+      "datahoraultimaalteracao": "03/02/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "01/02/2025",
+      "saldo": "576,32",
+      "detalhes": [
+        {
+          "codigodetalhe": 640215,
+          "codigoplanoconta": 124,
+          "nomeplanoconta": "Seguro incêndio",
+          "codigocontabilplanoconta": "7.1.8",
+          "descricao": "Seguro incêndio",
+          "observacao": "",
+          "valor": "576,32",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Pix",
+          "situacao": "Quitado",
+          "data": "01/02/2025",
+          "valor": "9.576,32",
+          "codigoboleto": 0,
+          "codigotransferencia": 0,
+          "resumo": "Pix - destino: Bradesco Stylus"
+        }
+      ],
+      "repasses": []
+    },
+    {
+      "codigo": 127967,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 1411,
+      "nomecliente": "IONE DE LIMA FELIX",
+      "codigocontratoaluguel": 2,
+      "codigocontratovenda": 0,
+      "codigoimovel": 77,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/02/2025 a 01/02/2025 - Pró-rata (1 dia)",
+      "linhadigitavel": "",
+      "datahorainclusao": "01/02/2025",
+      "datahoraultimaalteracao": "28/02/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "05/02/2025",
+      "saldo": "0,00",
+      "detalhes": [
+        {
+          "codigodetalhe": 663143,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/02/2025 a 01/02/2025 - Pró-rata (1 dia)",
+          "observacao": "",
+          "valor": "137,29",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 663613,
+          "codigoplanoconta": 155,
+          "nomeplanoconta": "Desconto aluguel",
+          "codigocontabilplanoconta": "10.1.2.1",
+          "descricao": "",
+          "observacao": "",
+          "valor": "-137,29",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "05/02/2025",
+          "valor": "4.044,05",
+          "codigoboleto": 0,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 3201,
+          "nomecliente": "GERMANA SILVA BRAGA",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "10/02/2025",
+          "saldo": "0,00",
+          "detalhes": [
+            {
+              "codigodetalhe": 663144,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/02/2025 a 01/02/2025 - Pró-rata (1 dia)",
+              "observacao": "",
+              "valor": "-137,29",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 663145,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "10,98",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 663614,
+              "codigoplanoconta": 153,
+              "nomeplanoconta": "Desconto aluguel",
+              "codigocontabilplanoconta": "7.1.2.1",
+              "descricao": "",
+              "observacao": "",
+              "valor": "137,29",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 663615,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Desconto aluguel",
+              "observacao": "",
+              "valor": "-10,98",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "10/02/2025",
+              "valor": "-2.070,00",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Itaú, ag. 4097, conta 00928-8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "codigo": 127968,
+      "codigoauxiliar": "",
+      "unidadecodigo": 7119,
+      "unidade": "IMOBILIARIA STYLUS",
+      "modulo": 2,
+      "tipocliente": "Locatário",
+      "codigocliente": 1411,
+      "nomecliente": "IONE DE LIMA FELIX",
+      "codigocontratoaluguel": 303,
+      "codigocontratovenda": 0,
+      "codigoimovel": 89,
+      "numerodocumento": "",
+      "historico": "Aluguel período 01/02/2025 a 01/02/2025 - Pró-rata (1 dia)",
+      "linhadigitavel": "",
+      "datahorainclusao": "01/02/2025",
+      "datahoraultimaalteracao": "28/02/2025",
+      "datavencimento": "01/02/2025",
+      "datapagamento": "05/02/2025",
+      "saldo": "0,00",
+      "detalhes": [
+        {
+          "codigodetalhe": 663148,
+          "codigoplanoconta": 117,
+          "nomeplanoconta": "Aluguel",
+          "codigocontabilplanoconta": "7.1.1",
+          "descricao": "Aluguel período 01/02/2025 a 01/02/2025 - Pró-rata (1 dia)",
+          "observacao": "",
+          "valor": "21,47",
+          "deduzirir": false
+        },
+        {
+          "codigodetalhe": 663608,
+          "codigoplanoconta": 155,
+          "nomeplanoconta": "Desconto aluguel",
+          "codigocontabilplanoconta": "10.1.2.1",
+          "descricao": "",
+          "observacao": "",
+          "valor": "-21,47",
+          "deduzirir": false
+        }
+      ],
+      "formasquitacao": [
+        {
+          "forma": "Boleto",
+          "situacao": "Quitado",
+          "data": "05/02/2025",
+          "valor": "759,02",
+          "codigoboleto": 0,
+          "codigotransferencia": 0,
+          "resumo": "Boleto, gerado fora do sistema - Bradesco Stylus"
+        }
+      ],
+      "repasses": [
+        {
+          "tipocliente": "Locador",
+          "codigocliente": 3201,
+          "nomecliente": "GERMANA SILVA BRAGA",
+          "numerodocumento": "",
+          "bloqueado": false,
+          "linhadigitavel": "",
+          "datavencimento": "10/02/2025",
+          "datapagamento": "07/02/2025",
+          "saldo": "0,00",
+          "detalhes": [
+            {
+              "codigodetalhe": 663149,
+              "codigoplanoconta": 136,
+              "nomeplanoconta": "Aluguel",
+              "codigocontabilplanoconta": "10.1.1",
+              "descricao": "Aluguel período 01/02/2025 a 01/02/2025 - Pró-rata (1 dia)",
+              "observacao": "",
+              "valor": "-21,47",
+              "deduzirir": true
+            },
+            {
+              "codigodetalhe": 663150,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Aluguel",
+              "observacao": "",
+              "valor": "1,72",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 663609,
+              "codigoplanoconta": 153,
+              "nomeplanoconta": "Desconto aluguel",
+              "codigocontabilplanoconta": "7.1.2.1",
+              "descricao": "",
+              "observacao": "",
+              "valor": "21,47",
+              "deduzirir": false
+            },
+            {
+              "codigodetalhe": 663610,
+              "codigoplanoconta": 4,
+              "nomeplanoconta": "Taxa administração",
+              "codigocontabilplanoconta": "1.1.1.1",
+              "descricao": "Taxa administração ref. a Desconto aluguel",
+              "observacao": "",
+              "valor": "-1,72",
+              "deduzirir": false
+            }
+          ],
+          "formasquitacao": [
+            {
+              "forma": "Transf./dep.",
+              "situacao": "Quitado",
+              "data": "07/02/2025",
+              "valor": "-454,59",
+              "codigoboleto": 0,
+              "codigotransferencia": 0,
+              "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Itaú, ag. 4097, conta 00928-8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
