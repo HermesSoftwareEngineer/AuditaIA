@@ -2,12 +2,12 @@ import pandas as pd
 
 meses2 = [
     {
-        "mes": "Janeiro",
+        "mes": "Janeiro2025",
         "data_inicial": "01/02/2025",
         "data_final": "28/02/2025",
     },
     {
-        "mes": "Fevereiro",
+        "mes": "Fevereiro2025",
         "data_inicial": "01/03/2025",
         "data_final": "31/03/2025",
     },

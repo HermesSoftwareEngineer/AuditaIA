@@ -20,6 +20,9 @@ def consultar_repasse_locador(data_inicial, data_final, codigo_cliente):
         "chave": f"{api_key}",
     }
 
+    print(
+        f"""Requisição feita! url: {url}, params: {params}"""
+    )
     response = requests.get(url, params=params, headers=headers)
 
     if response.status_code == 200:
