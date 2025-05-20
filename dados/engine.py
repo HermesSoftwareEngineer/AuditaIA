@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, MetaData, Table, Column
+from sqlalchemy import create_engine, MetaData, Table, Column, PrimaryKeyConstraint
 from sqlalchemy import Integer, String, Float, Date, DateTime, Text, BigInteger, Boolean 
 from sqlalchemy.orm import declarative_base
 
@@ -8,7 +8,7 @@ metadata = MetaData()
 movimentos_table = Table(
     "movimentos",
     metadata,
-    Column("codigo", BigInteger, primary_key=True),  # <- necessário para ON CONFLICT
+    Column("codigo", BigInteger),
     Column("codigoauxiliar", String),
     Column("unidadecodigo", Integer),
     Column("unidade", String),
@@ -26,7 +26,8 @@ movimentos_table = Table(
     Column("datahoraultimaalteracao", String),
     Column("datavencimento", String),
     Column("datapagamento", String),
-    Column("saldo", String)  # pode ser trocado para Float se quiser operações matemáticas
+    Column("saldo", String),  # pode ser trocado para Float se quiser operações matemáticas
+    PrimaryKeyConstraint("codigo", "saldo")  # Adiciona a constraint de primary key composta
 )
 
 detalhes_table = Table(

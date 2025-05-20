@@ -10,10 +10,10 @@ def consultar_repasse_locador(data_inicial, data_final, codigo_cliente):
     url = "https://api.imoview.com.br/Movimento/RetornarMovimentos"
     params = {
         "numeroPagina": 1,
-        "numeroRegistros": 1000,
+        "numeroRegistros": 100,
+        "codigoCliente": codigo_cliente,
         "dataVencimentoInicial": data_inicial,
         "dataVencimentoFinal": data_final,
-        "codigo_cliente": codigo_cliente
     }
     headers = {
         "accept": "application/json",

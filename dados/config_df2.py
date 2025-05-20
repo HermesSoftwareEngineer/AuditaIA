@@ -26,9 +26,10 @@ def salvar_movimentos(data):
             detalhes.append(detalhe)
 
     df_movimentos = pd.DataFrame(movimentos)
+    print("Movimentos DEBUG: ", df_movimentos.head(10000))
     df_detalhes = pd.DataFrame(detalhes)
 
-    upsert_dataframe(df_movimentos, 'movimentos', engine, 'codigo')
+    upsert_dataframe(df_movimentos, 'movimentos', engine, ['codigo', 'saldo'])
     # upsert_dataframe(df_detalhes, 'detalhes', engine, 'codigodetalhe')
 
 def listar_repasses(df_proprietarios, list_dfs, meses):
@@ -41,7 +42,7 @@ def listar_repasses(df_proprietarios, list_dfs, meses):
         # Configura os valores da coluna do mês atual
         for index, row in df_proprietarios.iterrows():
 
-            movimentos = consultar_repasse_locador(meses[i]['data_inicial'], meses[i]['data_final'], row['Proprietário'])
+            movimentos = consultar_repasse_locador(meses[i]['data_inicial'], meses[i]['data_final'], row['Cod. Proprietário'])
             salvar_movimentos(movimentos)
     
     # Calcula a diferença entre os meses
