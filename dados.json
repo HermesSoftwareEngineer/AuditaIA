@@ -1,0 +1,57 @@
+{
+    "locador": "JULIETA MARIA BARRETO VIDAL | CPF: 190.700.717-20",
+    "imovel": "Cód. 454 | Apartamento | Rua Joaquim Nabuco, 2399, Apto 802, Dionisio Torres - Fortaleza/CE, CEP 60125-121",
+    "imovelcodigo": 454,
+    "contrato": "Cód. 327 | Rescindido | Alugou outro imóvel | Atrasado | Aluguel R$ 1.411,67",
+    "contratocodigo": 327,
+    "locatario": "CENTRO DE DESENVOLVIMENTO E CIDANANIA | CNPJ: 03.970.166/0001-29",
+    "urlacessoexterno": "https://app.imoview.com.br/AcessoExterno/VisualizarExtrato?hash=48006F00780039004E00320034006D003900720075006F00500069002B00370048002B004E005100760065004600520030006C0042007A006A00460047007A004600660058004F005200740042007900620033003200320032007300700036006B0063007100540065007600680068004400670072004D0047004200490078004C0035005300790057002B005200670038003100380072005900560054006A0058004C0046004200460041003D003D00",
+    "movimentos": [
+        {
+            "codigo": 104773,
+            "datavencimento": "10/03/2025",
+            "datapagamento": "07/03/2025",
+            "historico": "Taxas transfêrências bancárias",
+            "valor": -9.7,
+            "detalhes": [
+                {
+                    "planoconta": "Taxas transfêrências bancárias",
+                    "historico": "Taxas transfêrências bancárias",
+                    "valor": -9.7
+                }
+            ],
+            "formasrepasse": [
+                {
+                    "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Itaú, ag. 0576-0, conta 05871-3",
+                    "valor": 1160.3
+                }
+            ]
+        },
+        {
+            "codigo": 104774,
+            "datavencimento": "10/03/2025",
+            "datapagamento": "07/03/2025",
+            "historico": "Aluguel período 01/02/2025 a 28/02/2025",
+            "valor": 1170,
+            "detalhes": [
+                {
+                    "planoconta": "Aluguel",
+                    "historico": "Aluguel período 01/02/2025 a 28/02/2025",
+                    "valor": 1300
+                },
+                {
+                    "planoconta": "Taxa administração",
+                    "historico": "",
+                    "valor": -130
+                }
+            ],
+            "formasrepasse": [
+                {
+                    "resumo": "Transf./dep. - origem: Bradesco Stylus - destino: C/C | Itaú, ag. 0576-0, conta 05871-3",
+                    "valor": 1160.3
+                }
+            ]
+        }
+    ],
+    "subtotal": 1160.3
+}
