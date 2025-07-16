@@ -23,3 +23,4 @@ prompt_assistente = ChatPromptTemplate.from_messages(
         MessagesPlaceholder(variable_name='messages')
     ]
 )
+
