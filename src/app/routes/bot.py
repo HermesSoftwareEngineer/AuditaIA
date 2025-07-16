@@ -17,7 +17,7 @@ def conversar():
         ia_output = graph.invoke({"messages": user_input}, config)
 
         response = {
-            "assistant":ia_output['messages'][-1].content
+            "resposta": ia_output['messages'][-1].content
         }
         return response
     return 'Página de Conversar. Envie um POST com uma mensagem!'
