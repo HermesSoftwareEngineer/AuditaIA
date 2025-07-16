@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from services.coleta import retornar_extrato_locador, pesquisar_cliente, retornar_imoveis_do_locador
+from services.coleta import retornar_extrato_locador, pesquisar_cliente, retornar_imoveis_do_locador, retornar_contratos_do_locador
 import json
 
 @tool
@@ -49,6 +49,24 @@ def tool_retornar_imoveis_do_locador(codigoCliente: str, numeroPagina: int):
     listaImoveis = response['dados'].json()
 
     return listaImoveis
+
+@tool
+def tool_retornar_contratos_do_locador(numeroPagina: int, codigoCliente: int, endereco: str = None, codigoContrato: str = None):
+    """
+        Use esta ferramenta para buscar contratos de locação de um locador em específico. 
+        Endereço é opcional. Codigo do contrato também é opcional.
+    """
+
+    numeroRegistros = 20
+
+    response = retornar_contratos_do_locador(numeroPagina, numeroRegistros, codigoCliente, endereco, codigoContrato)
+
+    if response['erro']:
+        return "Erro ao realizar a requisição de retornar imóveis do locador!"
+    
+    listaContratos = response['dados'].json()
+
+    return listaContratos
 
 # movimentosExtrato = coletar_dados_repasse(1745, 454, 2025, 3)
 # with open('dados.json', 'w', encoding='utf-8') as f:
