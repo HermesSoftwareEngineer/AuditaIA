@@ -21,7 +21,7 @@ def tool_coletar_dados_repasse(codigoCliente: int, codigoImovel: int, ano: int, 
 @tool
 def tool_pesquisar_clientes(textoPesquisa: str):
     """
-        Use esta ferramenta para buscar clientes informando qualquer dado disponível — como nome, CPF, e-mail, entre outros. O resultado será uma lista contendo os códigos dos clientes encontrados.
+        Use esta ferramenta para descobrir o CÓDIGO DE UM CLIENTE. Você pode informar qualquer dado disponível — como nome (mesmo inco,mpleto), CPF, e-mail, entre outros. O resultado será uma lista contendo os códigos dos clientes encontrados.
     """
 
     response = pesquisar_cliente(textoPesquisa)

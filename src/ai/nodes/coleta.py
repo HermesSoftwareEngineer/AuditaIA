@@ -1,10 +1,19 @@
-from graph import State
-from graph import llm
-from ai.tools.coletar_dados import coletar_dados_repasse
-from ai.prompts import prompt_coletor
+from ai.custom_types import State
+from ai.prompts import prompt_consultor
+from ai.tools.coletar_dados import tool_coletar_dados_repasse, tool_pesquisar_clientes, tool_retornar_imoveis_do_locador, tool_retornar_contratos_do_locador, tool_retornar_contratos_do_locatario
+from ai.llms import llm
 
-def coletar_dados(state: State):
-    prompt = prompt_coletor.invoke(state['messages'][-10])
-    response = llm.bind_tools([coletar_dados_repasse]).invoke(prompt)
+# Lista de tools
+tools = [
+    tool_coletar_dados_repasse, 
+    tool_pesquisar_clientes,
+    tool_retornar_imoveis_do_locador,
+    tool_retornar_contratos_do_locador,
+    tool_retornar_contratos_do_locatario
+]
+
+def consultar(state: State):
+    prompt = prompt_consultor.invoke(state['messages'][-40:])
+    response = llm.bind_tools(tools, tool_choice='any').invoke(prompt)
 
     return {'messages': response}

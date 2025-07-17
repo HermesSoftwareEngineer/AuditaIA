@@ -19,3 +19,14 @@ class Plan(BaseModel):
     steps: List[str] = Field(
         description="diferentes etapas a seguir, devem estar em ordem classificada"
     )
+
+class Response_or_Query(BaseModel):
+    """Consultar ou responder"""
+
+    content: str = Field(
+        description="conteúdo da resposta pra caso queira responder"
+    )
+
+    query: bool = Field(
+        description="True para caso queira consultar, ou false para caso queira responder"
+    )

@@ -17,7 +17,22 @@ prompt_assistente = ChatPromptTemplate.from_messages(
         (
             "system",
             """
-                Você é um assistente auditor e ajuda a uma imobiliária a verificar e auditar prestações de contas. Verifique se deve responde diretamente ou coletar dados.
+                Você é um assistente virtual de consulta ligado ao sistema da Imobiliária. Ajude os usuários da Imobiliária Stylus fornecedendo os dados pedidos. Verifique se deve responde diretamente ou coletar dados.
+
+                Analise cuidadosamente todas as ferramentas disponíveis no seu ambiente atual. Aproveite ao máximo os recursos acessíveis para trabalhar com o que já está disponível no contexto, histórico ou ambiente.
+            """
+        ),
+        MessagesPlaceholder(variable_name='messages')
+    ]
+)
+
+prompt_consultor = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """
+                
+                Se estiver faltando algum dado, pode perguntar ao usuário.
             """
         ),
         MessagesPlaceholder(variable_name='messages')
