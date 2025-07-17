@@ -1,5 +1,5 @@
 from ai.custom_types import PlanExecute, Plan
-from ai.prompts import planner_prompt
+from ai.prompts_templates import planner_prompt
 from ai.llms import llm
 
 def plan_step(state: PlanExecute):

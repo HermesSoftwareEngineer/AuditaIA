@@ -1,5 +1,5 @@
 from ai.custom_types import State, Response_or_Query
-from ai.prompts import prompt_assistente
+from ai.prompts_templates import prompt_assistente
 from ai.tools.coletar_dados import tool_coletar_dados_repasse, tool_pesquisar_clientes, tool_retornar_imoveis_do_locador, tool_retornar_contratos_do_locador, tool_retornar_contratos_do_locatario
 from ai.llms import llm
 

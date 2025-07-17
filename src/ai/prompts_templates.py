@@ -1,4 +1,4 @@
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import ChatPromptTemplate
 
 prompt_coletor = ChatPromptTemplate.from_messages(
     [
@@ -34,6 +34,16 @@ prompt_consultor = ChatPromptTemplate.from_messages(
                 
                 Se estiver faltando algum dado, pode perguntar ao usuário.
             """
+        ),
+        MessagesPlaceholder(variable_name='messages')
+    ]
+)
+
+prompt_selector = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """Identifique o prompt mais apropriado que servirá como instrução pro agent executor"""
         ),
         MessagesPlaceholder(variable_name='messages')
     ]
