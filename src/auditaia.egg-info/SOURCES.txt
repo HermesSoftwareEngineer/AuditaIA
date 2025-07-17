@@ -1,0 +1,16 @@
+pyproject.toml
+setup.py
+src/ai/__init__.py
+src/ai/chat.py
+src/ai/executor.py
+src/ai/graph.py
+src/app/__init__.py
+src/app/routes/__init__.py
+src/app/routes/bot.py
+src/app/routes/configuracoes.py
+src/app/routes/exportacao.py
+src/app/routes/repasses.py
+src/auditaia.egg-info/PKG-INFO
+src/auditaia.egg-info/SOURCES.txt
+src/auditaia.egg-info/dependency_links.txt
+src/auditaia.egg-info/top_level.txt
