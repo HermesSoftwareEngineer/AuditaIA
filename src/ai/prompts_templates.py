@@ -1,4 +1,4 @@
-from langchain_core.messages import ChatPromptTemplate
+from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 prompt_coletor = ChatPromptTemplate.from_messages(
     [
@@ -39,15 +39,17 @@ prompt_consultor = ChatPromptTemplate.from_messages(
     ]
 )
 
-prompt_selector = ChatPromptTemplate.from_messages(
-    [
-        (
-            "system",
-            """Identifique o prompt mais apropriado que servirá como instrução pro agent executor"""
-        ),
-        MessagesPlaceholder(variable_name='messages')
-    ]
-)
+prompt_selector = ChatPromptTemplate.from_messages([
+    (
+        "system",
+        """Seu papel é selecionar ou construir a melhor instrução (prompt) para que um agente LLM execute corretamente a tarefa solicitada pelo usuário.
+
+        Considere o contexto e a intenção do usuário com base nas mensagens anteriores. 
+        Responda com **apenas o prompt ideal** que deve ser enviado ao agente executor. 
+        Se necessário, adapte a linguagem para torná-la mais clara e objetiva."""
+    ),
+    MessagesPlaceholder(variable_name="messages")
+])
 
 planner_prompt = ChatPromptTemplate.from_messages(
     [

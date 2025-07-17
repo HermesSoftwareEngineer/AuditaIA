@@ -4,3 +4,5 @@ from dotenv import load_dotenv
 load_dotenv()
 
 llm = ChatVertexAI(model_name="gemini-2.0-flash")
+
+print(llm.invoke("Olá, Mundo!").content)
