@@ -1,18 +1,17 @@
-from ai.custom_types import State, Response_or_Query
+from ai.custom_types import State
 from ai.prompts_templates import prompt_selector
 from ai.llms import llm
+from ai.custom_types import PromptID
 
 def selector(state: State):
-    conversation_messsages = [
-        m for m in state['messages']
-        if m.type in ('system', 'human')
-        or (m.type == 'ia' and not m.tool_calls)
-    ]
 
-    list_messages_tools = [msg for msg in state['messages'] if msg.type == 'tool']
-    docs_messages_tools = "\n\n".join(m.content for m in list_messages_tools[-20:])
+    # Últimas 40 mensagens da conversa
+    list_messages = [msg for msg in state['messages']]
 
-    prompt = prompt_selector.invoke(docs_messages_tools + conversation_messsages)
-    response = llm.invoke(prompt)
+    # Cria o prompt
+    prompt = prompt_selector.invoke(list_messages)
 
-    return {'messages': response}
+    # Gera resposta com o modelo
+    response_prompt_id: PromptID = llm.with_structured_output(PromptID).invoke(prompt)
+
+    return {'selected_prompt_id': response_prompt_id.prompt}

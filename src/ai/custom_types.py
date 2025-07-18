@@ -6,6 +6,8 @@ from pydantic import BaseModel, Field
 
 class State(TypedDict):
     messages: Annotated[list[str], add_messages]
+    selected_prompt_id: int
+    prompt: str
 
 class PlanExecute(TypedDict):
     input: str
@@ -29,4 +31,10 @@ class Response_or_Query(BaseModel):
 
     query: bool = Field(
         description="True para caso queira consultar, ou false para caso queira responder"
+    )
+
+class PromptID(BaseModel):
+    
+    prompt: int = Field(
+        description="Número do prompt escolhido"
     )
