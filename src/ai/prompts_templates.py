@@ -1,4 +1,4 @@
-from langchain_core.messages import ChatPromptTemplate
+from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 prompt_coletor = ChatPromptTemplate.from_messages(
     [
