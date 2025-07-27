@@ -24,7 +24,7 @@ graph_builder.add_node("tools", toolsNode)
 graph_builder.add_edge(START, "selector")
 graph_builder.add_edge("selector", "consultar_ou_responder")
 graph_builder.add_conditional_edges("consultar_ou_responder", tools_condition, {"tools": "tools", END: END})
-graph_builder.add_edge("tools", "responder")
+graph_builder.add_edge("tools", "consultar_ou_responder")
 graph_builder.add_edge("responder", END)
 
 memory = MemorySaver()

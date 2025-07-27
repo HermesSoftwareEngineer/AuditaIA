@@ -6,9 +6,11 @@ def responder(state: State):
     list_messages_tools = [msg for msg in state['messages'] if msg.type == 'tool']
     docs_messages_tools = "\n\n".join(m.content for m in list_messages_tools[-20:])
 
-    system_message = HumanMessage(
+    system_message = SystemMessage(
         """
-        Utilize os dados disponíveis pra responder o usuário da melhor forma, segundo o que foi solicitado.\n\n
+        Utilize os dados disponíveis pra responder o usuário da melhor forma, segundo o que foi solicitado.
+        
+        Se o retorno da ferramenta for uma lista vazia ou quantidade 0, é porque não foi encontrado dados a partir dos parâmetros passados.\n\n
         """ + docs_messages_tools
     )
 
