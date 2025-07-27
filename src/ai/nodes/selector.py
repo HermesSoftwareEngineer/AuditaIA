@@ -1,7 +1,7 @@
 from ai.custom_types import State
 from ai.prompts_templates import prompt_selector
 from ai.llms import llm
-from ai.custom_types import PromptID
+from ai.prompts import PromptChoice, prompt_index
 
 def selector(state: State):
 
@@ -9,9 +9,16 @@ def selector(state: State):
     list_messages = [msg for msg in state['messages']]
 
     # Cria o prompt
-    prompt = prompt_selector.invoke(list_messages)
+    prompt_with_messages = prompt_selector.invoke(list_messages)
 
     # Gera resposta com o modelo
-    response_prompt_id: PromptID = llm.with_structured_output(PromptID).invoke(prompt)
+    titulo_prompt = llm.with_structured_output(PromptChoice).invoke(prompt_with_messages).title
 
-    return {'selected_prompt_id': response_prompt_id.prompt}
+    for p in prompt_index:
+        if p['title'] == titulo_prompt:
+            prompt = p
+            break
+        else:
+            prompt = "Prompt não localizado!"
+
+    return {'prompt': prompt}

@@ -1,4 +1,4 @@
-from ai.prompts.auditor import prompts_list
+from ai.prompts import prompts_list
 from ai.custom_types import State
 
 def verificar_prompt(state: State): 

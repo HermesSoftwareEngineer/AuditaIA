@@ -1,12 +1,12 @@
 from ai.custom_types import State
 from ai.llms import llm
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import SystemMessage, HumanMessage
 
 def responder(state: State):
     list_messages_tools = [msg for msg in state['messages'] if msg.type == 'tool']
     docs_messages_tools = "\n\n".join(m.content for m in list_messages_tools[-20:])
 
-    system_message = SystemMessage(
+    system_message = HumanMessage(
         """
         Utilize os dados disponíveis pra responder o usuário da melhor forma, segundo o que foi solicitado.\n\n
         """ + docs_messages_tools

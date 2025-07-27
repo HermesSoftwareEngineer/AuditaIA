@@ -14,7 +14,7 @@ tools = [
 
 def consultar_ou_responder(state: State):
     list_messages = prompt_assistente.invoke(state['messages'][-40:])
-    prompt = state['prompt']
+    prompt = state['prompt'].__str__()
     messages = list_messages.__str__()
     result = messages + prompt
     response = llm.bind_tools(tools).invoke(result)
