@@ -1,7 +1,7 @@
-from custom_types import Prompt
+from .custom_types import Prompt
 from pydantic import BaseModel
 from typing import Literal
-from llms import llm
+from .llms import llm
 
 saudar_usuario_prompt = Prompt(
     title="saudar_usuario",
