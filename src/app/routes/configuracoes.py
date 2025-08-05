@@ -3,7 +3,7 @@ from models.configuracoes import cadastrarPrompt, excluirPrompt, listar_prompts
 
 bp = Blueprint('configuracoes', __name__, url_prefix='/v1/configuracoes')
 
-@bp.route('prompt', methods=['GET', 'POST'])
+@bp.route('prompt/incluir', methods=['POST'])
 def incluir_prompt():
     if request.method == 'POST':
         data = request.get_json()
@@ -23,7 +23,11 @@ def incluir_prompt():
         return {
             "Prompt Incluído": response['content']
         }, 200
-    elif request.method == 'GET':
+    return "Método não permitido!", 405
+
+@bp.route('/prompt/listar/', methods=['GET'])
+def listar_prompts():
+    if request.method == 'GET':
         prompts = listar_prompts()
         if not prompts['sucess']:
             return {
@@ -33,9 +37,9 @@ def incluir_prompt():
         return {
             "Prompts": prompts['content']
         }, 200
-    return "Página de cadastro de prompt. Envie um prompt com os dados de ...!"
+    return "Método não permitido!", 405
 
-@bp.route('/prompt/<int:id>', methods=['GET','DELETE'])
+@bp.route('/prompt/deletar/<int:id>', methods=['DELETE'])
 def deletar_prompt(id):
     if request.method == 'DELETE':
         
