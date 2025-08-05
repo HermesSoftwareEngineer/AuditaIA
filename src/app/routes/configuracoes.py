@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
-from controllers.bot import cadastrarPrompt
+from models.configuracoes import cadastrarPrompt, excluirPrompt
 
 bp = Blueprint('configuracoes', __name__, url_prefix='/v1/configuracoes')
 
-@bp.route('incluirPrompt', methods=['GET', 'POST'])
+@bp.route('prompt', methods=['GET', 'POST'])
 def incluir_prompt():
     if request.method == 'POST':
         data = request.get_json()
@@ -24,3 +24,17 @@ def incluir_prompt():
             "Prompt Incluído": response['content']
         }, 200
     return "Página de cadastro de prompt. Envie um prompt com os dados de ...!"
+
+@bp.route('/prompt/<int:id>', methods=['DELETE'])
+def deletar_prompt(id):
+    if request.method == 'DELETE':
+        
+        response = excluirPrompt(id)
+        
+        if not response['sucess']:
+            return response['content'], 400
+
+        return {
+            'Prompt Deletado: ': response['content']
+        }, 200
+    return "Método não permitido!", 405

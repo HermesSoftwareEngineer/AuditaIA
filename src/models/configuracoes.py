@@ -56,4 +56,37 @@ def cadastrarPrompt(title, description, prompt_text, context, tools):
         }
     }
 
-# def excluirPrompt(title)
+def excluirPrompt(id):
+    data_dir = os.path.join(os.path.dirname(__file__), 'data')
+    os.makedirs(data_dir, exist_ok=True)
+    db_path = os.path.join(data_dir, 'prompts.db')
+    conn = sqlite3.connect(db_path)
+
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM prompts WHERE id = ?", (id,))
+
+    prompt = cursor.fetchone()
+
+    if not prompt:
+        return {'sucess': False, 'content': {
+            'erro': 'Prompt não encontrado!'
+        }}
+
+    cursor.execute("DELETE FROM prompts WHERE id = ?", (id,))
+
+    conn.commit()
+
+    if cursor.rowcount == 0:
+        return {'sucess': False, 'content': {
+            'erro': 'Erro ao excluir prompt!'
+        }}
+    
+    return {
+        'sucess': True,
+        'content': {
+            'id': id,
+            # ADICIONAR MAIS CAMPOS AQUI
+        }
+    }
+
