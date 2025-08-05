@@ -90,3 +90,24 @@ def excluirPrompt(id):
         }
     }
 
+def listar_prompts():
+    data_dir = os.path.join(os.path.dirname(__file__), 'data')
+    os.makedirs(data_dir, exist_ok=True)
+    db_path = os.path.join(data_dir, 'prompts.db')
+    conn = sqlite3.connect(db_path)
+
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM prompts")
+
+    prompts_list = cursor.fetchall()
+
+    if not prompts_list:
+        return {'sucess': False, 'erro': {
+            'erro': 'Prompts não encontrados!'
+        }}
+    
+    return {
+        'sucess': True,
+        'content': prompts_list
+    }
