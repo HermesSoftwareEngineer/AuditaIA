@@ -1,8 +1,11 @@
 from langchain_google_vertexai import ChatVertexAI
+from langchain.chat_models import init_chat_model
 from dotenv import load_dotenv
 
 load_dotenv()
 
 llm = ChatVertexAI(
-    model_name="gemini-2.0-flash",
+    model_name="gemini-2.5-flash",
 )
+
+# llm = init_chat_model("o3", model_provider='openai')

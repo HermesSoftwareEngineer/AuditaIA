@@ -1,7 +1,7 @@
 from ai.custom_types import State
 from ai.prompts_templates import prompt_selector
 from ai.llms import llm
-from ai.prompts import PromptChoice, prompt_index
+from ai.prompts_reader import PromptChoice, prompt_index
 
 def selector(state: State):
 

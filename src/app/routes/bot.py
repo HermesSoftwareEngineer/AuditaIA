@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response
 from ai.graph import graph
 
 bp = Blueprint('bot', __name__, url_prefix='/v1/bot')
@@ -7,7 +7,7 @@ bp = Blueprint('bot', __name__, url_prefix='/v1/bot')
 def hellobot():
     return "Olá, bot!"
 
-@bp.route('/conversar', methods=['GET', 'POST'])
+@bp.route('/conversar', methods=['GET', 'POST', 'OPTIONS'])
 def conversar():
     if request.method == 'POST':
         data = request.get_json()

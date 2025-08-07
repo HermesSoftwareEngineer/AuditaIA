@@ -1,5 +1,6 @@
 from ai.custom_types import Prompt
 import sqlite3
+import json
 import os
 
 def cadastrarPrompt(title, description, prompt_text, context, tools):
@@ -111,3 +112,54 @@ def listar_prompts():
         'sucess': True,
         'content': prompts_list
     }
+
+def atualizarPrompt(id, title, description, prompt_text, context, tools):
+    data_dir = os.path.join(os.path.dirname(__file__), 'data')
+    os.makedirs(data_dir, exist_ok=True)
+    db_path = os.path.join(data_dir, 'prompts.db')
+    conn = None 
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+
+        # Primeiro, verificamos se o prompt existe para evitar a execução desnecessária do UPDATE
+        cursor.execute("SELECT * FROM prompts WHERE id = ?", (id,))
+        prompt = cursor.fetchone()
+        
+        if not prompt:
+            return {'success': False, 'description': 'Prompt não encontrado!'}
+        
+        # Converte 'tools' para string JSON para armazenamento seguro
+        tools_str = json.dumps(tools)
+
+        # Executa o UPDATE de forma segura com placeholders
+        cursor.execute('''
+            UPDATE prompts
+            SET title = ?, description = ?, prompt_text = ?, context = ?, tools = ?
+            WHERE id = ?
+        ''', (title, description, prompt_text, context, tools_str, id))
+
+        conn.commit()
+
+        # A verificação de sucesso pode ser feita logo após o commit
+        if cursor.rowcount > 0:
+             return {
+                'success': True,
+                'content': {
+                    'title': title,
+                    'description': description,
+                    'prompt_text': prompt_text,
+                    'context': context,
+                    'tools': tools
+                }
+            }
+        else:
+            # Caso o UPDATE não tenha afetado nenhuma linha (situação improvável aqui)
+            return {'success': False, 'erro': 'Erro ao atualizar prompt!'}
+            
+    except sqlite3.Error as e:
+        print(f"Erro no banco de dados: {e}")
+        return {'success': False, 'erro': f'Erro no banco de dados: {e}'}
+    finally:
+        if conn:
+            conn.close()

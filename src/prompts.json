@@ -1,0 +1,29 @@
+[
+  {
+    "title": "pesquisar_repasse_locador",
+    "description": "Quando o usuário solicitar informações sobre um repasse de um locador.",
+    "prompt_text": "1. Utilize a ferramenta `tool_pesquisar_clientes` para obter o código do locador a partir do nome informado.\n2. Solicite ao usuário o código do imóvel relacionado.\n3. Solicite o mês desejado do repasse.\n4. Solicite o ano correspondente.\n5. Com todas as informações em mãos, use a ferramenta `tool_coletar_dados_repasse` para buscar os dados do repasse.",
+    "context": "repasse",
+    "tools": [
+      "tool_pesquisar_clientes",
+      "tool_coletar_dados_repasse"
+    ]
+  },
+  {
+    "title": "saudar_usuario",
+    "description": "Quando o usuário solicitar informações gerais.",
+    "prompt_text": "Você é um assistente virtual imobiliário. Seja cortêz e profissional",
+    "context": "saudacao",
+    "tools": []
+  },
+  {
+    "title": "pesquisar_imoveis_locador",
+    "description": "Quando o usuário solicitar os imóveis vinculados a um locador.",
+    "prompt_text": "1. Utilize a ferramenta `tool_pesquisar_clientes` para identificar o código do locador. 2. Use a ferramenta `tool_retornar_imoveis_do_locador` para buscar os imóveis associados (por padrão, inicie pela página 1).",
+    "context": "imoveis_locador",
+    "tools": [
+      "tool_pesquisar_clientes",
+      "tool_retornar_imoveis_do_locador"
+    ]
+  }
+]

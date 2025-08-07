@@ -9,11 +9,15 @@ load_dotenv()
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    CORS(app, resources={
-        r"/v1/*": {
-            "origins": os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
-        }
-    })
+    # CORS(app, resources={
+    #     r"/v1/*": {
+    #         "origins": os.getenv("FRONTEND_ORIGIN", "http://localhost:5173"),
+    #         "supports_credentials": True
+    #     }
+    # })
+
+    CORS(app, resources={r"/*": {"origins": "*"}})
+
 
     app.register_blueprint(bot.bp)
     app.register_blueprint(configuracoes.bp)

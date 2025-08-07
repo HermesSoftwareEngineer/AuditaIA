@@ -1,7 +1,12 @@
 from flask import Blueprint, request
-from models.configuracoes import cadastrarPrompt, excluirPrompt, listar_prompts
+from models.configuracoes import cadastrarPrompt, excluirPrompt, listar_prompts, atualizarPrompt
+from ai.prompts_loader import carregar_e_salvar_prompts
 
 bp = Blueprint('configuracoes', __name__, url_prefix='/v1/configuracoes')
+
+@bp.before_request
+def executar_em_toda_requisicao():
+    carregar_e_salvar_prompts()
 
 @bp.route('prompt/incluir', methods=['POST'])
 def incluir_prompt():
@@ -26,7 +31,7 @@ def incluir_prompt():
     return "Método não permitido!", 405
 
 @bp.route('/prompt/listar/', methods=['GET'])
-def listar_prompts():
+def listar_prompts_endpoint():
     if request.method == 'GET':
         prompts = listar_prompts()
         if not prompts['sucess']:
@@ -50,5 +55,28 @@ def deletar_prompt(id):
 
         return {
             'Prompt Deletado: ': response['content']
+        }, 200
+    return "Método não permitido!", 405
+
+@bp.route('/prompt/atualizar/<int:id>', methods=['PUT'])
+def atualizar_prompt(id):
+    if request.method == 'PUT':
+        data = request.get_json()
+        title = data.get("title")
+        description = data.get("description")
+        prompt_text = data.get("prompt_text")
+        context = data.get("context")
+        tools = data.get("tools")
+
+        response = atualizarPrompt(id, title, description, prompt_text, context, tools)
+        print('Response:', response)
+
+        if not response['success']:
+            return {
+                'Erro: ': response['erro']
+            }, 400
+        
+        return {
+            "Prompt Atualizado": response['content']
         }, 200
     return "Método não permitido!", 405
