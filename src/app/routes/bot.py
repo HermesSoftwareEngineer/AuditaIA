@@ -31,7 +31,7 @@ def conversar():
         
         # Garantir que sempre temos um thread_id
         if not thread_id:
-            thread_id = str(uuid.uuid4())
+            return "O thread_id é obrigatório!", 404
         
         # Generate title if not provided
         if not title:
