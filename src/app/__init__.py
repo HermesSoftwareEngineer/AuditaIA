@@ -18,6 +18,8 @@ def create_app(test_config=None):
 
     CORS(app, resources={r"/*": {"origins": "*"}})
 
+    from app.routes.bot import init_bot_blueprint
+    init_bot_blueprint()
 
     app.register_blueprint(bot.bp)
     app.register_blueprint(configuracoes.bp)

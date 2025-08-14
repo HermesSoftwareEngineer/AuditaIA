@@ -2,6 +2,7 @@ from pathlib import Path
 import sqlite3, json
 import ast
 from .custom_types import Prompt
+from ai.prompts_reader import carregar_prompts_do_json
 
 def carregar_prompts():
     db_path = Path(r"C:\Users\Hermes\PROJETOS_DEV\AuditaIA\src\models\data\prompts.db")
@@ -31,8 +32,6 @@ def carregar_prompts():
 
     return prompts
 
-
-
 def salvar_prompts_json(prompts_list, file_path):
     prompts_json = [
         {
@@ -53,5 +52,6 @@ def salvar_prompts_json(prompts_list, file_path):
 def carregar_e_salvar_prompts(file_path="prompts.json"):
     prompts_list = carregar_prompts()
     salvar_prompts_json(prompts_list, file_path)
-    # print(f"Prompts carregados e salvos em {file_path}")
+    print(f"Prompts carregados e salvos em {file_path}")
+    carregar_prompts_do_json()
     return prompts_list

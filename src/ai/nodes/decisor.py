@@ -13,7 +13,10 @@ tools = [
 ]
 
 def consultar_ou_responder(state: State):
-    list_messages = prompt_assistente.invoke(state['messages'][-40:])
+    messagesConversation = [m for m in state['messages'][-20:] if m.type != "tool"]
+    tools_messages = [m for m in state['messages'][-20:] if m.type == "tool"]
+    messages = messagesConversation + tools_messages
+    list_messages = prompt_assistente.invoke(messages)
     prompt = state['prompt'].__str__()
     messages = list_messages.__str__()
     result = messages + prompt

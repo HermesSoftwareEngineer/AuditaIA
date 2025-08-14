@@ -13,7 +13,7 @@ tools = [
 ]
 
 def consultar(state: State):
-    prompt = prompt_consultor.invoke(state['messages'][-40:])
+    prompt = prompt_consultor.invoke(state['messages'][-20:])
     response = llm.bind_tools(tools, tool_choice='any').invoke(prompt)
 
     return {'messages': response}

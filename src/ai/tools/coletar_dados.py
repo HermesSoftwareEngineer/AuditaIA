@@ -84,7 +84,3 @@ def tool_retornar_contratos_do_locatario(numeroPagina: int, codigoCliente: int, 
 
     return listaContratos
 
-
-# movimentosExtrato = coletar_dados_repasse(1745, 454, 2025, 3)
-# with open('dados.json', 'w', encoding='utf-8') as f:
-#     json.dump(movimentosExtrato, f, ensure_ascii=False, indent=4)

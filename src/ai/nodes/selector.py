@@ -5,9 +5,17 @@ from ai.prompts_reader import PromptChoice, prompt_index
 
 def selector(state: State):
 
-    # Últimas 40 mensagens da conversa
-    list_messages = [msg for msg in state['messages']]
-
+    # Últimas 5 mensagens da conversa
+    list_messages = []
+    index = 1
+    while True:
+        m = state['messages'][-index]
+        if m.type != "tool":
+            list_messages.append(m)
+        index += 1
+        if (len(list_messages) >= 5) or (index > len(state['messages'])):
+            break
+        
     # Cria o prompt
     prompt_with_messages = prompt_selector.invoke(list_messages)
 

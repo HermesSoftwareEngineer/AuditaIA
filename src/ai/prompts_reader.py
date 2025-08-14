@@ -12,6 +12,7 @@ def carregar_prompts_do_json(file_path: str | Path = "prompts.json") -> list[Pro
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    print("Prompts lidos com sucesso!")
     return [Prompt(**item) for item in data]
 
 prompts_list = carregar_prompts_do_json()
