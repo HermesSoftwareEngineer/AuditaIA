@@ -7,9 +7,17 @@ from ai.llms import llm
 tools = toolsList
 
 def consultar_ou_responder(state: State):
-    messagesConversation = [m for m in state['messages'][-20:] if m.type != "tool"]
-    tools_messages = [m for m in state['messages'][-20:] if m.type == "tool"]
-    messages = messagesConversation + tools_messages
+    conversation_messsages = [
+        m for m in state['messages']
+        if m.type in ('system', 'human')
+        or (m.type == 'ia' and not m.tool_calls)
+    ]
+    
+    list_messages_tools = [msg for msg in state['messages'] if msg.type == 'tool']
+    docs_messages_tools = "\n\n".join(m.content for m in list_messages_tools[-20:])
+
+    messages = conversation_messsages + list_messages_tools
+
     list_messages = prompt_assistente.invoke(messages)
     prompt = state['prompt'].__str__()
     messages = list_messages.__str__()
