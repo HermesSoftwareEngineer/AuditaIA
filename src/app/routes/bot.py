@@ -1,6 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify
 from ai.graph import graph
-from app.database.db import save_message, init_db, get_user_conversations
+from app.database.db import save_message, init_db, get_user_conversations, get_thread_title
 import uuid
 from sqlite3 import OperationalError
 import time
@@ -9,7 +9,7 @@ from ai.llms import llm
 bp = Blueprint('bot', __name__, url_prefix='/v1/bot')
 
 def init_bot_blueprint():
-    init_db(force_recreate=True)  # This will recreate the table with the new schema
+    init_db(force_recreate=False)
 
 @bp.route('/hellobot')
 def hellobot():
@@ -27,16 +27,16 @@ def conversar():
         user_input = data.get("mensagem")
         thread_id = data.get("thread_id")
         user_id = data.get("user_id", "anonymous")
-        title = data.get("title")  # Optional title for the conversation
         
         # Garantir que sempre temos um thread_id
         if not thread_id:
             return "O thread_id é obrigatório!", 404
-        
-        # Generate title if not provided
+
+        # Verifique se já existe um título para o thread_id no banco
+        title = get_thread_title(thread_id)
         if not title:
             title = generate_conversation_title(user_input)
-        
+
         # Função helper para tentar salvar com retry
         def try_save_message(thread_id, user_id, message, is_bot, title, max_retries=3):
             for attempt in range(max_retries):

@@ -52,5 +52,37 @@
     "prompt_text": "Você gostaria de saber mais sobre a plataforma AuditAI?  \nNossa solução oferece auditoria inteligente para gestão de propriedades, com recursos como geração de relatórios automáticos, análise de indicadores, categorização de lançamentos e alertas inteligentes.  \nO sistema foi desenvolvido com foco em segurança, usabilidade e automação, utilizando tecnologias modernas como React, TypeScript e Tailwind CSS.  \nSe quiser detalhes sobre funcionalidades, integrações ou diferenciais do",
     "context": "sobre_o_projeto",
     "tools": []
+  },
+  {
+    "title": "Pesquisar Extrato do Locatário",
+    "description": "Recupere informações detalhadas sobre o extrato financeiro de um locatário em um determinado mês e ano.",
+    "prompt_text": "1. Utilize a ferramenta `tool_pesquisar_clientes` para obter o código do inquilino/locatario a partir do nome informado.\n2. Solicite o mês desejado do repasse.\n3. Solicite o ano correspondente.\n4. Com todas as informações em mãos, use a ferramenta `tool_coletar_dados_extrato_locatario` para buscar os dados do extrato.\n",
+    "context": "Consulta financeira",
+    "tools": [
+      "tool_coletar_dados_extrato_locatario"
+    ]
+  },
+  {
+    "title": "Pesquisar Imóveis Disponíveis",
+    "description": "Busca imóveis disponíveis conforme filtros.\n\n",
+    "prompt_text": "Receba os filtros desejados, como finalidade (locação ou venda), endereço, número de quartos, valor mínimo e máximo. Utilize esses parâmetros para buscar imóveis disponíveis. Retorne uma lista resumida dos imóveis encontrados.",
+    "context": "Busca Imóveis",
+    "tools": [
+      "tool_retornar_imoveis_disponiveis"
+    ]
+  },
+  {
+    "title": "Conversar com o Usuário",
+    "description": "Interaja para entender a necessidade do usuário.\n\n",
+    "prompt_text": "Cumprimente o usuário e pergunte qual informação ou serviço ele deseja. Faça perguntas para entender melhor a solicitação e colete os dados necessários para executar a ação correta. Confirme se entendeu antes de prosseguir.\n\n",
+    "context": "Interação usuário",
+    "tools": []
+  },
+  {
+    "title": "Situação sem Prompt Definido",
+    "description": "Gerencia casos sem prompt específico.\n\n",
+    "prompt_text": "Verifique o que o usuário quer e utilize as ferramentas necessárias pra auxiliá-lo",
+    "context": "Prompt Indefinido",
+    "tools": []
   }
 ]

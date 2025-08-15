@@ -71,3 +71,13 @@ def get_user_conversations(user_id: str):
     
     conn.close()
     return conversations
+
+def get_thread_title(thread_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT title FROM messages WHERE thread_id = ? AND title IS NOT NULL LIMIT 1", (thread_id,))
+    row = cursor.fetchone()
+    conn.close()
+    if row:
+        return row[0]
+    return None

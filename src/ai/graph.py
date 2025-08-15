@@ -8,7 +8,9 @@ from ai.nodes.tools_node import toolsNode
 from ai.nodes.responder import responder
 from ai.nodes.selector import selector
 from ai.nodes.verificar_prompt import verificar_prompt
+from langgraph.checkpoint.sqlite import SqliteSaver
 from dotenv import load_dotenv
+import sqlite3
 
 load_dotenv()
 
@@ -27,5 +29,10 @@ graph_builder.add_conditional_edges("consultar_ou_responder", tools_condition, {
 graph_builder.add_edge("tools", "consultar_ou_responder")
 graph_builder.add_edge("responder", END)
 
-memory = MemorySaver()
+# cria ou conecta ao DB SQLite
+conn = sqlite3.connect('langgraph_memory.db', check_same_thread=False)
+
+# inicializa o checkpointer para persistência
+memory = SqliteSaver(conn)
+
 graph = graph_builder.compile(checkpointer=memory)
