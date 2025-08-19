@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from models.configuracoes import cadastrarPrompt, excluirPrompt, listar_prompts, atualizarPrompt
-from ai.prompts_loader import carregar_e_salvar_prompts
+from ai.auditing_agent.prompts_loader import carregar_e_salvar_prompts
 
 bp = Blueprint('configuracoes', __name__, url_prefix='/v1/configuracoes')
 

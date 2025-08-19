@@ -84,5 +84,23 @@
     "prompt_text": "Verifique o que o usuário quer e utilize as ferramentas necessárias pra auxiliá-lo",
     "context": "Prompt Indefinido",
     "tools": []
+  },
+  {
+    "title": "Avaliação do M² de uma região",
+    "description": "Quando o usuário quiser saber o m² médio de uma região ou quiser uma avaliação ou quiser uma listagem de imóveis",
+    "prompt_text": "1. Chame a ferramenta web_search_properties para pesquisar links de anúnicos de imóveis\n2. Liste os imóveis, valores, descrição e m²\n3. Compare os valores de aluguel ou venda pelo m² e calcule o m² médio",
+    "context": "Avaliação de Imóveis",
+    "tools": [
+      "web_search_properties"
+    ]
+  },
+  {
+    "title": "Avaliação de Imóveis",
+    "description": "Quando o usuário pedir uma avaliação de imóvel",
+    "prompt_text": "Quando o usuário pedir uma avaliação de imóvel, utilize a tool \"avaliar_imovel\"",
+    "context": "avaliação",
+    "tools": [
+      "avaliar_imovel"
+    ]
   }
 ]

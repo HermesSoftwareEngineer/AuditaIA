@@ -1,4 +1,4 @@
-from ai.custom_types import Prompt
+from ai.auditing_agent.custom_types import Prompt
 import sqlite3
 import json
 import os

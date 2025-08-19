@@ -1,15 +1,16 @@
 from flask import Blueprint, request, make_response, jsonify
-from ai.graph import graph
+from ai.auditing_agent.graph import graph
+# from ai.evaluating_agent.graph import graph
 from app.database.db import save_message, init_db, get_user_conversations, get_thread_title
 import uuid
 from sqlite3 import OperationalError
 import time
-from ai.llms import llm
+from ai.auditing_agent.llms import llm
 
 bp = Blueprint('bot', __name__, url_prefix='/v1/bot')
 
 def init_bot_blueprint():
-    init_db(force_recreate=False)
+    init_db(force_recreate=True)
 
 @bp.route('/hellobot')
 def hellobot():
