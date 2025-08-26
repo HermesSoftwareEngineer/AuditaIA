@@ -1,0 +1,1 @@
+# Remover todos os prompts e a lista prompts_list, pois agora estão em prompts.py
