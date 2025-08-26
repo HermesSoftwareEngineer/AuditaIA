@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: auditaia-api
+    env: python
+    region: oregon
+    buildCommand: "./build.sh"
+    startCommand: "./start.sh"
+    plan: free
+    branch: main
+    healthCheckPath: /v1/auth/health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: ADMIN_EMAIL
+        value: admin@auditaia.com
+      - key: ADMIN_PASSWORD
+        generateValue: true
+
+  - type: pserv
+    name: auditaia-db
+    env: postgresql
+    region: oregon
+    plan: free
+    databaseName: auditaia
+    databaseUser: auditaia
