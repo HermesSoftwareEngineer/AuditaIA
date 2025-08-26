@@ -78,31 +78,45 @@ def register():
         400: Dados incompletos
         409: Usuário ou email já existe
     """
-    data = request.get_json()
-    
-    # Verificar dados
-    if not data or not data.get('username') or not data.get('password') or not data.get('email'):
-        return jsonify({'message': 'Dados incompletos!'}), 400
-    
-    # Verificar se usuário já existe
-    if User.query.filter_by(username=data['username']).first():
-        return jsonify({'message': 'Usuário já existe!'}), 409
-    
-    if User.query.filter_by(email=data['email']).first():
-        return jsonify({'message': 'Email já cadastrado!'}), 409
-    
-    # Criar novo usuário
-    new_user = User(
-        username=data['username'], 
-        email=data['email'],
-        user_type=data.get('user_type', 'user')  # Default é 'user'
-    )
-    new_user.set_password(data['password'])
-    
-    db.session.add(new_user)
-    db.session.commit()
-    
-    return jsonify({'message': 'Usuário criado com sucesso!'}), 201
+    try:
+        data = request.get_json()
+        
+        # Verificar dados
+        if not data or not data.get('username') or not data.get('password') or not data.get('email'):
+            return jsonify({'message': 'Username, email e password são obrigatórios!'}), 400
+        
+        # Verificar se usuário já existe
+        if User.query.filter_by(username=data['username']).first():
+            return jsonify({'message': 'Usuário já existe!'}), 409
+        
+        if User.query.filter_by(email=data['email']).first():
+            return jsonify({'message': 'Email já cadastrado!'}), 409
+        
+        # Criar novo usuário
+        new_user = User(
+            username=data['username'], 
+            email=data['email'],
+            user_type=data.get('user_type', 'user')  # Default é 'user'
+        )
+        new_user.set_password(data['password'])
+        
+        db.session.add(new_user)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Usuário criado com sucesso!',
+            'user': {
+                'id': new_user.id,
+                'username': new_user.username,
+                'email': new_user.email,
+                'user_type': new_user.user_type
+            }
+        }), 201
+        
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Erro ao criar usuário: {str(e)}")
+        return jsonify({'message': 'Erro interno do servidor'}), 500
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -271,6 +285,59 @@ def health_check():
         'timestamp': datetime.utcnow().isoformat(),
         'service': 'auditaia-auth'
     }), 200
+
+@bp.route('/first-setup', methods=['POST'])
+def first_setup():
+    """
+    POST /v1/auth/first-setup
+    Cria o primeiro usuário admin se nenhum usuário existir.
+    Usado apenas na configuração inicial.
+    Corpo JSON:
+        {
+            "username": "string",
+            "email": "string",
+            "password": "string"
+        }
+    Respostas:
+        201: Admin criado com sucesso
+        400: Dados incompletos
+        409: Já existem usuários no sistema
+    """
+    try:
+        # Verificar se já existem usuários
+        if User.query.first():
+            return jsonify({'message': 'Sistema já possui usuários cadastrados!'}), 409
+        
+        data = request.get_json()
+        
+        if not data or not data.get('username') or not data.get('password') or not data.get('email'):
+            return jsonify({'message': 'Username, email e password são obrigatórios!'}), 400
+        
+        # Criar primeiro admin
+        admin_user = User(
+            username=data['username'], 
+            email=data['email'],
+            user_type='admin'
+        )
+        admin_user.set_password(data['password'])
+        
+        db.session.add(admin_user)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Primeiro administrador criado com sucesso!',
+            'user': {
+                'id': admin_user.id,
+                'username': admin_user.username,
+                'email': admin_user.email,
+                'user_type': admin_user.user_type
+            }
+        }), 201
+        
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Erro ao criar primeiro admin: {str(e)}")
+        return jsonify({'message': 'Erro interno do servidor'}), 500
 
 def init_auth_blueprint():
     return bp
