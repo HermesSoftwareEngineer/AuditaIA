@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build script para Render - Com tratamento de erros
+# Build script para Render - Com todas as dependências
 
 set -o errexit
 
@@ -7,10 +7,12 @@ echo "🔧 Atualizando pip..."
 python -m pip install --upgrade pip
 
 echo "📦 Instalando dependências principais..."
-# Instalar dependências uma por uma para melhor diagnóstico
 pip install --no-cache-dir Flask==3.0.0
 pip install --no-cache-dir Werkzeug==3.0.1
+pip install --no-cache-dir blinker==1.7.0
+pip install --no-cache-dir SQLAlchemy==2.0.23
 pip install --no-cache-dir Flask-SQLAlchemy==3.1.1
+pip install --no-cache-dir alembic==1.13.1
 pip install --no-cache-dir Flask-Migrate==4.0.5
 pip install --no-cache-dir Flask-CORS==4.0.0
 pip install --no-cache-dir PyJWT==2.8.0

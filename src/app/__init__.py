@@ -50,11 +50,27 @@ def create_app():
         app.logger.setLevel(logging.INFO)
         app.logger.info('AuditaIA startup')
     
+    # Importar modelos para que as migrações funcionem
+    from app.models.user import User
+    
     # Registrar blueprints
     from app.routes.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
     
-    # Health check route
+    # Route raiz
+    @app.route('/')
+    def index():
+        return {
+            'message': 'AuditaIA API',
+            'version': '1.0.0',
+            'status': 'running',
+            'endpoints': {
+                'auth': '/v1/auth/',
+                'health': '/v1/auth/health'
+            }
+        }
+    
+    # Health check global
     @app.route('/health')
     def health():
         return {'status': 'healthy', 'service': 'auditaia'}, 200

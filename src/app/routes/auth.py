@@ -285,10 +285,10 @@ def health_check():
         db_status = "disconnected"
         if hasattr(db, 'engine'):
             try:
-                db.session.execute('SELECT 1')
+                result = db.session.execute(db.text('SELECT 1'))
                 db_status = "connected"
-            except:
-                db_status = "error"
+            except Exception as e:
+                db_status = f"error: {str(e)}"
         
         return jsonify({
             'status': 'healthy',
