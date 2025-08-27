@@ -14,9 +14,10 @@ if [ ! -f render.yaml ]; then
     exit 1
 fi
 
-# Remover arquivos Docker se existirem
+# Remover COMPLETAMENTE arquivos Docker se existirem
 echo "🧹 Removendo arquivos Docker..."
 rm -f Dockerfile docker-compose.yml .dockerignore
+rm -f docker-compose.yaml docker-compose.override.yml
 
 # Verificar estrutura do projeto
 echo "📁 Verificando estrutura do projeto..."
@@ -33,7 +34,7 @@ fi
 # Fazer commit das mudanças
 echo "💾 Commitando mudanças..."
 git add .
-git commit -m "Prepare for Render deployment" || echo "Nada para commitar"
+git commit -m "Remove Docker files and prepare for Render deployment" || echo "Nada para commitar"
 
 # Push para GitHub
 echo "📤 Enviando para GitHub..."
@@ -47,7 +48,6 @@ echo "2. Conecte seu repositório GitHub"
 echo "3. Crie novo Blueprint"
 echo "4. Configure variáveis de ambiente se necessário"
 echo "5. Deploy automático será iniciado"
-# Subir aplicação
 echo "🚀 Iniciando aplicação..."
 docker-compose up -d
 
