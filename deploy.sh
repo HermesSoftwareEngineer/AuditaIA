@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Preparando deploy para Render..."
+echo "🚀 Preparando deploy com Docker..."
 
 # Verificar se requirements.txt existe
 if [ ! -f requirements.txt ]; then
@@ -8,9 +8,15 @@ if [ ! -f requirements.txt ]; then
     exit 1
 fi
 
-# Verificar se render.yaml existe
-if [ ! -f render.yaml ]; then
-    echo "❌ Arquivo render.yaml não encontrado!"
+# Verificar se Dockerfile existe
+if [ ! -f Dockerfile ]; then
+    echo "❌ Dockerfile não encontrado!"
+    exit 1
+fi
+
+# Verificar se docker-compose.yml existe
+if [ ! -f docker-compose.yml ]; then
+    echo "❌ docker-compose.yml não encontrado!"
     exit 1
 fi
 
@@ -29,7 +35,7 @@ fi
 # Fazer commit das mudanças
 echo "💾 Commitando mudanças..."
 git add .
-git commit -m "Remove Docker files and prepare for Render deployment" || echo "Nada para commitar"
+git commit -m "Configuração para deploy com Docker" || echo "Nada para commitar"
 
 # Push para GitHub
 echo "📤 Enviando para GitHub..."
@@ -37,9 +43,6 @@ git push origin main
 
 echo "✅ Projeto preparado para deploy!"
 echo ""
-echo "🌐 Próximos passos no Render:"
-echo "1. Vá para render.com"
-echo "2. Delete o serviço web atual (criado com Docker)"
-echo "3. Clique em New → Blueprint e selecione este repositório"
-echo "4. Configure variáveis de ambiente se necessário"
-echo "5. Apply para iniciar o deploy"
+echo "🌐 Para rodar localmente:"
+echo "1. Execute: docker-compose up --build"
+echo "2. Acesse: http://localhost:5000"
