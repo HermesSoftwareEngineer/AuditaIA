@@ -19,7 +19,7 @@ def create_app(test_config=None):
     
     database_url = os.environ.get('DATABASE_URL')
     if not database_url:
-        raise ValueError("A variável de ambiente DATABASE_URL não foi configurada. Verifique seu arquivo .env ou as configurações do ambiente.")
+        raise ValueError("Aa variável de ambiente DATABASE_URL não foi configurada. Verifique seu arquivo .env ou as configurações do ambiente.")
         
     # Supabase/Heroku usam 'postgres://', mas SQLAlchemy 1.4+ prefere 'postgresql://'
     if database_url.startswith("postgres://"):
