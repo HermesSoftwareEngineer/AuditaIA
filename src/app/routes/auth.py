@@ -280,10 +280,42 @@ def update_user(user_id):
 @bp.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint para monitoramento"""
+    try:
+        # Testar conexão com banco se disponível
+        db_status = "disconnected"
+        if hasattr(db, 'engine'):
+            try:
+                db.session.execute('SELECT 1')
+                db_status = "connected"
+            except:
+                db_status = "error"
+        
+        return jsonify({
+            'status': 'healthy',
+            'timestamp': datetime.utcnow().isoformat(),
+            'service': 'auditaia-auth',
+            'database': db_status,
+            'version': '1.0.0'
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'status': 'unhealthy',
+            'error': str(e),
+            'timestamp': datetime.utcnow().isoformat()
+        }), 500
+
+@bp.route('/status', methods=['GET'])
+def status():
+    """Status endpoint simplificado"""
     return jsonify({
-        'status': 'healthy',
+        'message': 'AuditaIA API está funcionando',
         'timestamp': datetime.utcnow().isoformat(),
-        'service': 'auditaia-auth'
+        'endpoints': {
+            'auth': '/v1/auth/',
+            'health': '/v1/auth/health',
+            'login': '/v1/auth/login',
+            'register': '/v1/auth/register (admin only)'
+        }
     }), 200
 
 @bp.route('/first-setup', methods=['POST'])

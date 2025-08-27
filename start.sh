@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Start script para Render
+# Start script para Render - Simplificado
 
 set -o errexit
 
@@ -9,27 +9,27 @@ echo "🚀 Iniciando AuditaIA..."
 export FLASK_APP=src.app:create_app
 export FLASK_ENV=production
 
-# Executar migrações se necessário
+# Executar migrações se DATABASE_URL estiver disponível
 if [ "$DATABASE_URL" ]; then
+    echo "📊 Executando migrações..."
     cd src
-    echo "📊 Verificando migrações..."
-    python -m flask db upgrade || echo "⚠️ Sem migrações para executar"
+    python -c "
+try:
+    from app import create_app
+    from flask_migrate import upgrade
+    app = create_app()
+    with app.app_context():
+        upgrade()
+    print('✅ Migrações concluídas')
+except Exception as e:
+    print(f'⚠️ Erro nas migrações: {e}')
+" || echo "⚠️ Migrações falharam"
     cd ..
 fi
 
-# Criar usuário admin inicial se não existir
-if [ "$DATABASE_URL" ]; then
-    echo "👤 Verificando usuário admin..."
-    cd src
-    python -c "
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-from app import create_app
-from app.models.user import User, db
-
-app = create_app()
+# Iniciar aplicação
+echo "🌐 Iniciando servidor..."
+exec gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 60 src.app:create_app
 with app.app_context():
     try:
         admin = User.query.filter_by(username='admin').first()

@@ -3,8 +3,8 @@ services:
     name: auditaia-api
     env: python
     region: oregon
-    buildCommand: "./build.sh"
-    startCommand: "./start.sh"
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 60 src.app:create_app()"
     plan: free
     branch: main
     healthCheckPath: /v1/auth/health
@@ -17,15 +17,15 @@ services:
         generateValue: true
       - key: CORS_ORIGINS
         value: "*"
-      - key: ADMIN_EMAIL
-        value: admin@auditaia.com
-      - key: ADMIN_PASSWORD
-        generateValue: true
+      - key: PYTHON_VERSION
+        value: "3.11.0"
 
   - type: pserv
     name: auditaia-db
     env: postgresql
     region: oregon
     plan: free
+    databaseName: auditaia
+    databaseUser: auditaia
     databaseName: auditaia
     databaseUser: auditaia
