@@ -2,9 +2,14 @@ from flask import Blueprint, request, jsonify, current_app, g
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
-from app.models.user import User, db
+from app.models.user import User
+from app.extensions import db
+from sqlalchemy import select, text
+from sqlalchemy.exc import OperationalError
 import os
 import logging
+import click
+from flask.cli import with_appcontext
 
 bp = Blueprint('auth', __name__, url_prefix='/v1/auth')
 
@@ -26,7 +31,8 @@ def token_required(f):
             # Decodificar o token
             jwt_secret = current_app.config.get('JWT_SECRET_KEY', current_app.config['SECRET_KEY'])
             data = jwt.decode(token, jwt_secret, algorithms=["HS256"])
-            g.current_user = User.query.filter_by(id=data['user_id']).first()
+            # g.current_user = User.query.filter_by(id=data['user_id']).first()
+            g.current_user = db.session.get(User, data['user_id'])
             
             if not g.current_user:
                 return jsonify({'message': 'Usuário não encontrado!'}), 401
@@ -86,10 +92,12 @@ def register():
             return jsonify({'message': 'Username, email e password são obrigatórios!'}), 400
         
         # Verificar se usuário já existe
-        if User.query.filter_by(username=data['username']).first():
+        # if User.query.filter_by(username=data['username']).first():
+        if db.session.execute(select(User).filter_by(username=data['username'])).scalar_one_or_none():
             return jsonify({'message': 'Usuário já existe!'}), 409
         
-        if User.query.filter_by(email=data['email']).first():
+        # if User.query.filter_by(email=data['email']).first():
+        if db.session.execute(select(User).filter_by(email=data['email'])).scalar_one_or_none():
             return jsonify({'message': 'Email já cadastrado!'}), 409
         
         # Criar novo usuário
@@ -139,7 +147,8 @@ def login():
         if not data or not data.get('email') or not data.get('password'):
             return jsonify({'message': 'Email e senha são obrigatórios'}), 401
         
-        user = User.query.filter_by(email=data['email']).first()
+        # user = User.query.filter_by(email=data['email']).first()
+        user = db.session.execute(select(User).filter_by(email=data['email'])).scalar_one_or_none()
         
         if not user:
             return jsonify({'message': 'Credenciais inválidas'}), 401
@@ -210,7 +219,8 @@ def delete_user(user_id):
         403: Acesso negado
         404: Usuário não encontrado
     """
-    user = User.query.get(user_id)
+    # user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         return jsonify({'message': 'Usuário não encontrado!'}), 404
 
@@ -245,7 +255,8 @@ def update_user(user_id):
         403: Acesso negado
         404: Usuário não encontrado
     """
-    user = User.query.get(user_id)
+    # user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         return jsonify({'message': 'Usuário não encontrado!'}), 404
 
@@ -281,15 +292,14 @@ def update_user(user_id):
 def health_check():
     """Health check endpoint para monitoramento"""
     try:
-        # Testar conexão com banco se disponível
         db_status = "disconnected"
         if hasattr(db, 'engine'):
             try:
-                result = db.session.execute(db.text('SELECT 1'))
+                # result = db.session.execute(db.text('SELECT 1'))
+                db.session.execute(text('SELECT 1'))
                 db_status = "connected"
             except Exception as e:
                 db_status = f"error: {str(e)}"
-        
         return jsonify({
             'status': 'healthy',
             'timestamp': datetime.utcnow().isoformat(),
@@ -323,28 +333,25 @@ def first_setup():
     """
     POST /v1/auth/first-setup
     Cria o primeiro usuário admin se nenhum usuário existir.
-    Usado apenas na configuração inicial.
+    
     Corpo JSON:
         {
             "username": "string",
             "email": "string",
             "password": "string"
         }
-    Respostas:
-        201: Admin criado com sucesso
-        400: Dados incompletos
-        409: Já existem usuários no sistema
     """
     try:
-        # Verificar se já existem usuários
-        if User.query.first():
-            return jsonify({'message': 'Sistema já possui usuários cadastrados!'}), 409
-        
         data = request.get_json()
         
-        if not data or not data.get('username') or not data.get('password') or not data.get('email'):
+        # Validar dados básicos
+        if not all([data.get('username'), data.get('email'), data.get('password')]):
             return jsonify({'message': 'Username, email e password são obrigatórios!'}), 400
-        
+            
+        # Verificar se já existem usuários
+        if db.session.execute(select(User)).first():
+            return jsonify({'message': 'Sistema já possui usuários cadastrados!'}), 409
+            
         # Criar primeiro admin
         admin_user = User(
             username=data['username'], 
@@ -361,15 +368,31 @@ def first_setup():
             'user': {
                 'id': admin_user.id,
                 'username': admin_user.username,
-                'email': admin_user.email,
-                'user_type': admin_user.user_type
+                'email': admin_user.email
             }
         }), 201
         
+    except OperationalError:
+        db.session.rollback()
+        return jsonify({'message': "Erro de banco de dados. Verifique se o banco foi inicializado."}), 500
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Erro ao criar primeiro admin: {str(e)}")
+        logging.error(f"Erro: {str(e)}")
         return jsonify({'message': 'Erro interno do servidor'}), 500
 
-def init_auth_blueprint():
-    return bp
+@click.command('init-db')
+@with_appcontext
+def init_db_command():
+    """Limpa os dados existentes e cria novas tabelas."""
+    try:
+        # Garante que o modelo User seja importado
+        from app.models.user import User
+        
+        # Mostra as tabelas que serão criadas
+        click.echo(f"Modelos registrados: {db.Model.registry._class_registry.keys()}")
+        
+        # Cria as tabelas
+        db.create_all()
+        click.echo('Banco de dados inicializado com sucesso.')
+    except Exception as e:
+        click.echo(f'ERRO ao inicializar banco: {str(e)}')

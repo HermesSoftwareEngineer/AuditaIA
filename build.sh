@@ -13,12 +13,13 @@ echo "📁 Criando diretórios necessários..."
 mkdir -p logs
 
 echo "🗄️ Configurando banco de dados..."
+# Define a variável de ambiente para os comandos do Flask
 export FLASK_APP=src.app:create_app
-cd src
 
 # Inicializar banco se necessário
 if [ "$DATABASE_URL" ]; then
     echo "📊 Executando migrações..."
+    # Executa o comando a partir da raiz do projeto
     python -m flask db upgrade || echo "⚠️ Migrações falharam ou não necessárias"
 fi
 
