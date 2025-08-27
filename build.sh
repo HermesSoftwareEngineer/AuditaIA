@@ -1,32 +1,18 @@
 #!/usr/bin/env bash
-# Build script para Render - Com todas as dependências
+# Build script para Render
 
 set -o errexit
 
 echo "🔧 Atualizando pip..."
 python -m pip install --upgrade pip
 
-echo "📦 Instalando dependências principais..."
-pip install --no-cache-dir Flask==3.0.0
-pip install --no-cache-dir Werkzeug==3.0.1
-pip install --no-cache-dir blinker==1.7.0
-pip install --no-cache-dir SQLAlchemy==2.0.23
-pip install --no-cache-dir Flask-SQLAlchemy==3.1.1
-pip install --no-cache-dir alembic==1.13.1
-pip install --no-cache-dir Flask-Migrate==4.0.5
-pip install --no-cache-dir Flask-CORS==4.0.0
-pip install --no-cache-dir PyJWT==2.8.0
-pip install --no-cache-dir python-dotenv==1.0.0
-pip install --no-cache-dir psycopg2-binary==2.9.9
-pip install --no-cache-dir gunicorn==21.2.0
-pip install -r requirements.txt
+echo "📦 Instalando dependências..."
+pip install --no-cache-dir -r requirements.txt
 
 echo "📁 Criando diretórios necessários..."
 mkdir -p logs
 
-echo "✅ Build concluído!"
 echo "🗄️ Configurando banco de dados..."
-# Render executa as migrações automaticamente se DATABASE_URL estiver configurado
 export FLASK_APP=src.app:create_app
 cd src
 

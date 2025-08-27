@@ -1,52 +1,52 @@
 #!/bin/bash
 
-echo "🚀 Iniciando deploy do AuditaIA..."
+echo "🚀 Preparando deploy para Render..."
 
-# Verificar se .env existe
-if [ ! -f .env ]; then
-    echo "❌ Arquivo .env não encontrado! Copie .env.example para .env e configure as variáveis."
+# Verificar se requirements.txt existe
+if [ ! -f requirements.txt ]; then
+    echo "❌ Arquivo requirements.txt não encontrado!"
     exit 1
 fi
 
-# Parar containers existentes
-echo "⏹️  Parando containers existentes..."
-docker-compose down
+# Verificar se render.yaml existe
+if [ ! -f render.yaml ]; then
+    echo "❌ Arquivo render.yaml não encontrado!"
+    exit 1
+fi
 
-# Construir imagens
-echo "🔨 Construindo imagens..."
-docker-compose build --no-cache
+# Remover arquivos Docker se existirem
+echo "🧹 Removendo arquivos Docker..."
+rm -f Dockerfile docker-compose.yml .dockerignore
 
-# Subir banco de dados
-echo "🗄️  Iniciando banco de dados..."
-docker-compose up -d db
+# Verificar estrutura do projeto
+echo "📁 Verificando estrutura do projeto..."
+if [ ! -d "src" ]; then
+    echo "❌ Pasta src não encontrada!"
+    exit 1
+fi
 
-# Aguardar banco estar pronto
-echo "⏳ Aguardando banco de dados..."
-sleep 10
+if [ ! -f "src/app.py" ]; then
+    echo "❌ Arquivo src/app.py não encontrado!"
+    exit 1
+fi
 
-# Executar migrações
-echo "📊 Executando migrações do banco..."
-docker-compose run --rm app flask db upgrade
+# Fazer commit das mudanças
+echo "💾 Commitando mudanças..."
+git add .
+git commit -m "Prepare for Render deployment" || echo "Nada para commitar"
 
-# Criar usuário admin inicial (se não existir)
-echo "👤 Criando usuário admin inicial..."
-docker-compose run --rm app python -c "
-from app import create_app
-from app.models.user import User, db
+# Push para GitHub
+echo "📤 Enviando para GitHub..."
+git push origin main
 
-app = create_app()
-with app.app_context():
-    admin = User.query.filter_by(username='admin').first()
-    if not admin:
-        admin = User(username='admin', email='admin@auditaia.com', user_type='admin')
-        admin.set_password('admin123')
-        db.session.add(admin)
-        db.session.commit()
-        print('Usuário admin criado: admin/admin123')
-    else:
-        print('Usuário admin já existe')
-"
-
+echo "✅ Projeto preparado para deploy!"
+echo ""
+echo "🌐 Próximos passos no Render:"
+echo "1. Vá para render.com"
+echo "2. Conecte seu repositório GitHub"
+echo "3. Crie novo Blueprint"
+echo "4. Configure variáveis de ambiente se necessário"
+echo "5. Deploy automático será iniciado"
 # Subir aplicação
 echo "🚀 Iniciando aplicação..."
 docker-compose up -d
