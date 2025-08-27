@@ -14,11 +14,6 @@ if [ ! -f render.yaml ]; then
     exit 1
 fi
 
-# Remover COMPLETAMENTE arquivos Docker se existirem
-echo "🧹 Removendo arquivos Docker..."
-rm -f Dockerfile docker-compose.yml .dockerignore
-rm -f docker-compose.yaml docker-compose.override.yml
-
 # Verificar estrutura do projeto
 echo "📁 Verificando estrutura do projeto..."
 if [ ! -d "src" ]; then
