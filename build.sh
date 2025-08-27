@@ -19,6 +19,7 @@ pip install --no-cache-dir PyJWT==2.8.0
 pip install --no-cache-dir python-dotenv==1.0.0
 pip install --no-cache-dir psycopg2-binary==2.9.9
 pip install --no-cache-dir gunicorn==21.2.0
+pip install -r requirements.txt
 
 echo "📁 Criando diretórios necessários..."
 mkdir -p logs
