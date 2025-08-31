@@ -5,8 +5,12 @@ from .custom_types import Prompt
 from .prompts_reader import carregar_prompts_do_json
 
 def carregar_prompts():
-    db_path = Path(r"C:\Users\Hermes\PROJETOS_DEV\AuditaIA\src\models\data\prompts.db")
-    conn = sqlite3.connect(db_path)
+    # Use o diretório do arquivo atual como base
+    base_dir = Path(__file__).resolve().parent.parent.parent
+    db_path = base_dir / "models" / "data" / "prompts.db"
+    if not db_path.exists():
+        raise FileNotFoundError(f"Banco de dados de prompts não encontrado: {db_path}")
+    conn = sqlite3.connect(str(db_path))
     cursor = conn.cursor()
     cursor.execute("SELECT title, description, prompt_text, context, tools FROM prompts")
     rows = cursor.fetchall()

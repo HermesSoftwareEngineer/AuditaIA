@@ -1,0 +1,27 @@
+services:
+  api:
+    build: .
+    container_name: minha-api
+    ports:
+      - "5000:5000" 
+    secrets:
+      - google_credentials.json
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/google_credentials.json
+      DATABASE_URL: ${DATABASE_URL}
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY}
+      IMOVIEW_API_KEY: ${IMOVIEW_API_KEY}
+      LANGSMITH_TRACING: ${LANGSMITH_TRACING}
+      IMOVIEW_CODIGO_ACESSO: ${IMOVIEW_CODIGO_ACESSO}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN}
+      API_CUSTOM_SEARCH: ${API_CUSTOM_SEARCH}
+      CX_CUSTOM_SEARCH_ANUNCIOS_IMOVEIS: ${CX_CUSTOM_SEARCH_ANUNCIOS_IMOVEIS}
+      FLASK_ENV: ${FLASK_ENV}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      PORT: ${PORT}
+
+secrets:
+  google_credentials.json:
+    file: api_keys/google_credentials.json

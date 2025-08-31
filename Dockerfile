@@ -15,6 +15,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./src ./src
 
+COPY src/models/data/prompts.db /app/models/data/prompts.db
+
 # Opcional: remover build.sh daqui, rodar migrations no Start Command
 # COPY ./build.sh .
 # RUN bash ./build.sh

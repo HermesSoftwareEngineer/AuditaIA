@@ -32,14 +32,29 @@ def create_app(test_config=None):
     # Inicializar extensões
     db.init_app(app)
     migrate.init_app(app, db)
-    CORS(app, origins=['*'])
-    
+
+    # Configurar CORS baseado em variável de ambiente FRONTEND_ORIGIN
+    frontend_origin = os.environ.get('FRONTEND_ORIGIN', '*')
+    CORS(
+        app,
+        origins=[frontend_origin],
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
+        supports_credentials=True
+    )
+
     # Importar e registrar componentes da aplicação
     from app.routes.auth import bp as auth_bp, init_db_command
+    from app.routes.repasses import bp as repasses_bp
+    from app.routes.configuracoes import bp as configuracoes_bp
+    from app.routes.bot import bp as bot_bp, init_bot_blueprint
     
     # Registrar rotas (blueprints)
     app.register_blueprint(auth_bp)
-    
+    app.register_blueprint(repasses_bp)
+    app.register_blueprint(configuracoes_bp)
+    app.register_blueprint(bot_bp)
+
     # Registrar comando CLI
     app.cli.add_command(init_db_command)
     
