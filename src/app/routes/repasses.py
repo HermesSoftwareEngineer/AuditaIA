@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from services.movimentosServices import retornar_movimentos
 import calendar
 
@@ -14,18 +14,20 @@ def comparativo_prestacao_contas():
     """
     Endpoint for comparing accounting statements between current and previous months
     """
+    current_app.logger.info("Iniciando comparativo de prestação de contas")
+    
     data = request.get_json()
     codigo_proprietario = data.get('codigo_proprietario')
     mes_referencia = data.get('mes_referencia')  # formato: "YYYY-MM"
     
     usar_ia_real = data.get('usar_ia_real', False)
-
     retornar_movimentos_condensados = data.get('retornar_movimentos_condensados', False)
-
     retornar_movimentos_originais = data.get('retornar_movimentos_originais', False)
 
+    current_app.logger.debug(f"Parâmetros recebidos: código_proprietario={codigo_proprietario}, mes_referencia={mes_referencia}, usar_ia_real={usar_ia_real}")
 
     if not codigo_proprietario or not mes_referencia:
+        current_app.logger.error(f"Parâmetros inválidos: código_proprietario={codigo_proprietario}, mes_referencia={mes_referencia}")
         return jsonify({
             'erro': 'Parâmetros inválidos. É necessário fornecer codigo_proprietario e mes_referencia.'
         }), 400
@@ -52,6 +54,7 @@ def comparativo_prestacao_contas():
         last_day_prev = calendar.monthrange(prev_year, prev_month)[1]
         end_date_prev = f"{prev_year}-{prev_month:02d}-{last_day_prev}"
         
+        current_app.logger.info(f"Buscando dados do mês atual: {start_date_current} a {end_date_current}")
         # Fetch data from API
         current_month_data = fetch_movement_data(
             codigo_proprietario, 
@@ -59,6 +62,7 @@ def comparativo_prestacao_contas():
             end_date_current
         )
         
+        current_app.logger.info(f"Buscando dados do mês anterior: {start_date_prev} a {end_date_prev}")
         previous_month_data = fetch_movement_data(
             codigo_proprietario, 
             start_date_prev, 
@@ -69,13 +73,16 @@ def comparativo_prestacao_contas():
         original_current_data = current_month_data
         original_previous_data = previous_month_data
         
+        current_app.logger.debug("Condensando movimentos para análise")
         # Process data - always condense for analysis purposes
         condensed_current_data = condense_movements(current_month_data)
         condensed_previous_data = condense_movements(previous_month_data)
         
+        current_app.logger.debug("Realizando análise geral dos movimentos")
         # Get overall financial analysis
         overall_analysis = analyze_movements(condensed_current_data, condensed_previous_data)
         
+        current_app.logger.info(f"Criando análises por cliente com IA {'real' if usar_ia_real else 'simulada'}")
         # Create client analyses
         client_analyses = create_client_analyses(
             condensed_current_data, 
@@ -107,15 +114,19 @@ def comparativo_prestacao_contas():
         
         # Add movements data based on condensation preference
         if retornar_movimentos_condensados:
+            current_app.logger.debug("Incluindo movimentos condensados na resposta")
             response['movimentos_mes_atual_condensados'] = condensed_current_data
             response['movimentos_mes_anterior_condensados'] = condensed_previous_data
         if retornar_movimentos_originais:
+            current_app.logger.debug("Incluindo movimentos originais na resposta")
             response['movimentos_mes_atual_originais'] = original_current_data
             response['movimentos_mes_anterior_originais'] = original_previous_data
 
+        current_app.logger.info(f"Comparativo de prestação de contas concluído com sucesso para proprietário {codigo_proprietario}")
         return jsonify(response), 200
         
     except Exception as e:
+        current_app.logger.error(f"Erro no processamento do comparativo: {str(e)}", exc_info=True)
         return jsonify({'erro': f"Erro ao processar requisição: {str(e)}"}), 500
 
 
@@ -123,6 +134,8 @@ def fetch_movement_data(codigo_cliente, data_inicial, data_final):
     """
     Fetch movement data from the API and handle potential errors
     """
+    current_app.logger.debug(f"Buscando movimentos para cliente {codigo_cliente} entre {data_inicial} e {data_final}")
+    
     response = retornar_movimentos(
         numeroPagina=1, 
         numeroRegistros=1000,
@@ -133,8 +146,10 @@ def fetch_movement_data(codigo_cliente, data_inicial, data_final):
     
     # Check for errors in API response
     if response.get('erro'):
+        current_app.logger.error(f"Erro na API externa ao buscar movimentos: {response['erro']}")
         raise Exception(f"Erro ao buscar movimentos: {response['erro']}")
     
+    current_app.logger.debug(f"Dados de movimentos recuperados com sucesso para cliente {codigo_cliente}")
     # Process the response
     return response['dados'].json()
 
@@ -143,6 +158,8 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
     """
     Create analyses for each client
     """
+    current_app.logger.debug("Iniciando criação de análises por cliente")
+    
     # Group current data by client name
     current_clients = {}
     for item in condensed_current_data.get('lista', []):
@@ -159,11 +176,15 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
             previous_clients[client_name] = []
         previous_clients[client_name].append(item)
     
+    current_app.logger.info(f"Dados agrupados para {len(current_clients)} clientes")
+    
     # List to store client analyses
     client_analyses = []
     
     # Process each unique client
     for client_name, client_movements in current_clients.items():
+        current_app.logger.debug(f"Processando análise para cliente: {client_name}")
+        
         # Merge the client's data from all movements
         merged_current_data = merge_client_movements(client_movements)
         
@@ -174,6 +195,7 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
         # Calculate metrics
         metrics = calculate_client_metrics(merged_current_data, merged_previous_data)
         
+        current_app.logger.debug(f"Obtendo insights via LLM para cliente: {client_name}")
         # Get insights based on financial metrics
         insights_text = LLMAnalysisService.get_client_insights(
             client_name,
@@ -189,9 +211,6 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
         if merged_previous_data:
             dados_anteriores = {k: v for k, v in merged_previous_data.items() if k != 'cliente'}
 
-        # dados_atuais['detalhes_resumo'] = remover_duplicados(dados_atuais['detalhes_resumo'])
-        # dados_anteriores['detalhes_resumo'] = remover_duplicados(dados_anteriores['detalhes_resumo']) if dados_anteriores else None
-
         # Add analysis to results
         client_analyses.append({
             'cliente': client_name,
@@ -200,7 +219,10 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
             'metricas_financeiras': metrics,
             'insights_llm': insights_text
         })
+        
+        current_app.logger.debug(f"Análise concluída para cliente: {client_name}")
     
+    current_app.logger.info(f"Total de {len(client_analyses)} análises de clientes criadas")
     return client_analyses
 
 def merge_client_movements(movements):
@@ -216,8 +238,5 @@ def merge_client_movements(movements):
     # Initialize datos_resumo as a list if multiple movements exist
     if len(movements) > 1:
         merged_data['dados_resumo'] = [movement.get('dados_resumo', {}) for movement in movements]
-    
-    # Sum numerical values where appropriate (this depends on your specific data structure)
-    # You may need to adjust this based on your actual data structure
     
     return merged_data
