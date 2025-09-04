@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify, current_app
 from services.movimentosServices import retornar_movimentos
 import calendar
+from services.clienteServices import pesquisar_cliente
 
-# Import our refactored services and utils
+# Importação dos nossos serviços e utilitários refatorados
 from app.utils.data_transformers import condense_movements
 from app.services.financial_service import analyze_movements, calculate_client_metrics
 from app.services.llm_service import LLMAnalysisService
@@ -12,7 +13,7 @@ bp = Blueprint('repasses', __name__, url_prefix='/v1/repasses')
 @bp.route('/comparativo-prestacao-contas', methods=['POST'])
 def comparativo_prestacao_contas():
     """
-    Endpoint for comparing accounting statements between current and previous months
+    Endpoint para comparação de prestações de contas entre mês atual e anterior
     """
     current_app.logger.info("Iniciando comparativo de prestação de contas")
     
@@ -68,6 +69,9 @@ def comparativo_prestacao_contas():
             start_date_prev, 
             end_date_prev
         )
+
+        proprietarioInfo = pesquisar_cliente(codigo_proprietario)
+        proprietario = proprietarioInfo.get("dados").json().get("nome") if not proprietarioInfo.get("erro") else None
         
         # Store original data for non-condensed response
         original_current_data = current_month_data
@@ -75,9 +79,9 @@ def comparativo_prestacao_contas():
         
         current_app.logger.debug("Condensando movimentos para análise")
         # Process data - always condense for analysis purposes
-        condensed_current_data = condense_movements(current_month_data)
-        condensed_previous_data = condense_movements(previous_month_data)
-        
+        condensed_current_data = condense_movements(current_month_data, proprietario)
+        condensed_previous_data = condense_movements(previous_month_data, proprietario)
+
         current_app.logger.debug("Realizando análise geral dos movimentos")
         # Get overall financial analysis
         overall_analysis = analyze_movements(condensed_current_data, condensed_previous_data)
@@ -132,7 +136,7 @@ def comparativo_prestacao_contas():
 
 def fetch_movement_data(codigo_cliente, data_inicial, data_final):
     """
-    Fetch movement data from the API and handle potential errors
+    Busca dados de movimentação da API e trata possíveis erros
     """
     current_app.logger.debug(f"Buscando movimentos para cliente {codigo_cliente} entre {data_inicial} e {data_final}")
     
@@ -156,87 +160,151 @@ def fetch_movement_data(codigo_cliente, data_inicial, data_final):
 
 def create_client_analyses(condensed_current_data, condensed_previous_data, use_real_llm):
     """
-    Create analyses for each client
+    Cria análises para cada cliente com base nos dados financeiros atuais e anteriores
+    
+    Args:
+        condensed_current_data: Dados do mês atual condensados
+        condensed_previous_data: Dados do mês anterior condensados
+        use_real_llm: Flag indicando se deve usar IA real ou simulada
+        
+    Returns:
+        list: Lista com análises por cliente
     """
-    current_app.logger.debug("Iniciando criação de análises por cliente")
-    
-    # Group current data by client name
-    current_clients = {}
-    for item in condensed_current_data.get('lista', []):
-        client_name = item.get('cliente', '')
-        if client_name not in current_clients:
-            current_clients[client_name] = []
-        current_clients[client_name].append(item)
-    
-    # Group previous data by client name
-    previous_clients = {}
-    for item in condensed_previous_data.get('lista', []):
-        client_name = item.get('cliente', '')
-        if client_name not in previous_clients:
-            previous_clients[client_name] = []
-        previous_clients[client_name].append(item)
-    
-    current_app.logger.info(f"Dados agrupados para {len(current_clients)} clientes")
-    
-    # List to store client analyses
-    client_analyses = []
-    
-    # Process each unique client
-    for client_name, client_movements in current_clients.items():
-        current_app.logger.debug(f"Processando análise para cliente: {client_name}")
-        
-        # Merge the client's data from all movements
-        merged_current_data = merge_client_movements(client_movements)
-        
-        # Get previous month data if available
-        previous_movements = previous_clients.get(client_name, [])
-        merged_previous_data = merge_client_movements(previous_movements) if previous_movements else None
-        
-        # Calculate metrics
-        metrics = calculate_client_metrics(merged_current_data, merged_previous_data)
-        
-        current_app.logger.debug(f"Obtendo insights via LLM para cliente: {client_name}")
-        # Get insights based on financial metrics
-        insights_text = LLMAnalysisService.get_client_insights(
-            client_name,
-            merged_current_data,
-            merged_previous_data,
-            metrics,
-            use_real_llm
-        )
-        
-        # Create copies of data without redundant client field
-        dados_atuais = {k: v for k, v in merged_current_data.items() if k != 'cliente'}
-        dados_anteriores = None
-        if merged_previous_data:
-            dados_anteriores = {k: v for k, v in merged_previous_data.items() if k != 'cliente'}
+    analyses_results = []
+    set_clients_mes_atual = set()
 
-        # Add analysis to results
-        client_analyses.append({
+    # Adicionando clientes do mês atual
+    for item in condensed_current_data.get('lista', []):
+        client_name = item.get('cliente')
+
+        dados_atuais = {
+            "data_pagamento_cliente": item.get("data_pagamento_cliente"),
+            "data_pagamento_repasse": item.get("data_pagamento_repasse"),
+            "data_vencimento_cliente": item.get("data_vencimento_cliente"),
+            "data_vencimento_repasse": item.get("data_vencimento_repasse"),
+            "detalhes_resumo": item.get("detalhes_resumo"),
+            "saldo": item.get("saldo")
+        }
+
+        dados_anteriores = {}
+        # Aqui deveria calcular as métricas usando a função calculate_client_metrics
+        metrics = calculate_client_metrics(dados_atuais, dados_anteriores)  # Passando dados vazios para anterior
+        
+        # Gerar insights com IA apenas se houver diferença entre os saldos
+        insights = ""
+        if metrics.get("diferenca") != 0:
+            insights = LLMAnalysisService.get_client_insights(
+                client_name,
+                dados_atuais,
+                dados_anteriores,
+                metrics,
+                use_real_llm
+            )
+
+        client_analysis = {
             'cliente': client_name,
             'dados_atuais': dados_atuais,
             'dados_anteriores': dados_anteriores,
             'metricas_financeiras': metrics,
-            'insights_llm': insights_text
-        })
+            'insights_llm': insights
+        }
         
-        current_app.logger.debug(f"Análise concluída para cliente: {client_name}")
-    
-    current_app.logger.info(f"Total de {len(client_analyses)} análises de clientes criadas")
-    return client_analyses
+        set_clients_mes_atual.add(client_name)
+        analyses_results.append(client_analysis)
 
-def merge_client_movements(movements):
-    """
-    Merges multiple movements for a single client into one consolidated record
-    """
-    if not movements:
-        return {}
-    
-    # Start with the first movement as base
-    merged_data = movements[0].copy()
-    
-    # Initialize datos_resumo as a list if multiple movements exist
-    if len(movements) > 1:
-        merged_data['dados_resumo'] = [movement.get('dados_resumo', {}) for movement in movements]
-    
-    return merged_data
+    # Analisando clientes do mês anterior
+    for item in condensed_previous_data.get("lista", []):
+        client_name = item.get("cliente")
+
+        dados_anteriores = {
+            "data_pagamento_cliente": item.get("data_pagamento_cliente"),
+            "data_pagamento_repasse": item.get("data_pagamento_repasse"),
+            "data_vencimento_cliente": item.get("data_vencimento_cliente"),
+            "data_vencimento_repasse": item.get("data_vencimento_repasse"),
+            "detalhes_resumo": item.get("detalhes_resumo"),
+            "saldo": item.get("saldo")
+        }
+
+        # Verifica se esse cliente tem dados no mes atual
+        if client_name in set_clients_mes_atual:
+            # Pega os dados atuais (nome da variável corrigido)
+            item_mes_atual = None
+            for i in condensed_current_data.get("lista", []):
+                if i.get("cliente") == client_name:
+                    item_mes_atual = i
+                    break
+
+            # Armazena corretamente na variável
+            dados_atuais = {
+                "data_pagamento_cliente": item_mes_atual.get("data_pagamento_cliente"),
+                "data_pagamento_repasse": item_mes_atual.get("data_pagamento_repasse"),
+                "data_vencimento_cliente": item_mes_atual.get("data_vencimento_cliente"),
+                "data_vencimento_repasse": item_mes_atual.get("data_vencimento_repasse"),
+                "detalhes_resumo": item_mes_atual.get("detalhes_resumo"),
+                "saldo": item_mes_atual.get("saldo")
+            }
+
+            # Calcular métricas financeiras comparativas
+            metrics = calculate_client_metrics(dados_atuais, dados_anteriores)
+            
+            # Gerar insights com IA apenas se houver diferença entre os saldos
+            insights = ""
+            if metrics.get("diferenca") != 0:
+                insights = LLMAnalysisService.get_client_insights(
+                    client_name,
+                    dados_atuais,
+                    dados_anteriores,
+                    metrics,
+                    use_real_llm
+                )
+
+            # Define a análise desse cliente
+            client_analysis = {
+                'cliente': client_name,
+                'dados_atuais': dados_atuais,
+                'dados_anteriores': dados_anteriores,
+                'metricas_financeiras': metrics,
+                'insights_llm': insights
+            }
+
+            # Atualiza a análise existente
+            for index, i in enumerate(analyses_results):
+                if i.get("cliente", "") == client_name:
+                    analyses_results[index] = client_analysis
+                    break
+        
+        # Caso não tenha dados no mes atual
+        else:
+            dados_atuais = {
+                "data_pagamento_cliente": "",
+                "data_pagamento_repasse": "",
+                "data_vencimento_cliente": "",
+                "data_vencimento_repasse": "",
+                "detalhes_resumo": [],
+                "saldo": 0,
+            }
+
+            # Calcular métricas financeiras apenas com dados anteriores
+            metrics = calculate_client_metrics(dados_atuais, dados_anteriores)
+            # Gerar insights com IA apenas se houver diferença entre os saldos
+            insights = ""
+            if metrics.get("diferenca") != 0:
+                insights = LLMAnalysisService.get_client_insights(
+                    client_name,
+                    dados_atuais,
+                    dados_anteriores,
+                    metrics,
+                    use_real_llm
+                )
+
+            client_analysis = {
+                'cliente': client_name,
+                'dados_atuais': dados_atuais,
+                'dados_anteriores': dados_anteriores,
+                'metricas_financeiras': metrics,
+                'insights_llm': insights
+            }
+
+            analyses_results.append(client_analysis)
+
+    return analyses_results
