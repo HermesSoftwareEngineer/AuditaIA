@@ -28,3 +28,23 @@ def pesquisar_cliente(textoPesquisa: str):
 
     return {'dados': dados, 'erro': False}
 
+def buscar_cliente(codigoCliente: int):
+    url='https://api.imoview.com.br/Cliente/App_RetornarDetalhesCliente'
+
+    params = {
+        'codigoCliente': codigoCliente,
+        'codigoUsuario': 7
+    }
+
+    headers = {
+        'accept':'aplication/json',
+        'chave': api_key,
+        'codigoacesso': codigo_acesso
+    }
+
+    dados = requests.get(url, params=params, headers=headers)
+
+    if dados.status_code != 200:
+        return {'erro': "Erro ao realizar a requisição de buscar cliente"}
+
+    return {'dados': dados, 'erro': False}

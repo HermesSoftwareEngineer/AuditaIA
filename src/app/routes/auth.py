@@ -25,6 +25,7 @@ def token_required(f):
         
         # Se não há token, retorna erro
         if not token:
+            current_app.logger.warning("Tentativa de acesso sem token de autenticação")
             return jsonify({'message': 'Token ausente!'}), 401
 
         try:
@@ -35,14 +36,19 @@ def token_required(f):
             g.current_user = db.session.get(User, data['user_id'])
             
             if not g.current_user:
+                current_app.logger.warning(f"Token com user_id inexistente: {data.get('user_id')}")
                 return jsonify({'message': 'Usuário não encontrado!'}), 401
+            
+            current_app.logger.debug(f"Autenticação bem-sucedida para usuário: {g.current_user.username}")
                 
         except jwt.ExpiredSignatureError:
+            current_app.logger.warning("Tentativa de acesso com token expirado")
             return jsonify({'message': 'Token expirado!'}), 401
         except jwt.InvalidTokenError:
+            current_app.logger.warning("Tentativa de acesso com token inválido")
             return jsonify({'message': 'Token inválido!'}), 401
         except Exception as e:
-            logging.error(f"Erro na validação do token: {str(e)}")
+            current_app.logger.error(f"Erro na validação do token: {str(e)}")
             return jsonify({'message': 'Erro interno na autenticação!'}), 500
 
         return f(*args, **kwargs)
@@ -60,8 +66,10 @@ def admin_required(f):
         
         # Agora verifica se o usuário é admin
         if not g.current_user.is_admin():
+            current_app.logger.warning(f"Usuário {g.current_user.username} tentou acessar função restrita a administradores")
             return jsonify({'message': 'Acesso negado. Privilégios de administrador necessários!'}), 403
 
+        current_app.logger.debug(f"Acesso administrativo concedido para usuário: {g.current_user.username}")
         return f(*args, **kwargs)
     
     return decorated
@@ -85,19 +93,23 @@ def register():
         409: Usuário ou email já existe
     """
     try:
+        current_app.logger.info("Tentativa de registro de novo usuário por administrador")
         data = request.get_json()
         
         # Verificar dados
         if not data or not data.get('username') or not data.get('password') or not data.get('email'):
+            current_app.logger.warning("Tentativa de registro com dados incompletos")
             return jsonify({'message': 'Username, email e password são obrigatórios!'}), 400
         
         # Verificar se usuário já existe
         # if User.query.filter_by(username=data['username']).first():
         if db.session.execute(select(User).filter_by(username=data['username'])).scalar_one_or_none():
+            current_app.logger.warning(f"Tentativa de registro de username já existente: {data['username']}")
             return jsonify({'message': 'Usuário já existe!'}), 409
         
         # if User.query.filter_by(email=data['email']).first():
         if db.session.execute(select(User).filter_by(email=data['email'])).scalar_one_or_none():
+            current_app.logger.warning(f"Tentativa de registro com email já cadastrado: {data['email']}")
             return jsonify({'message': 'Email já cadastrado!'}), 409
         
         # Criar novo usuário
@@ -111,6 +123,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         
+        current_app.logger.info(f"Novo usuário criado com sucesso: {new_user.username} (tipo: {new_user.user_type})")
         return jsonify({
             'message': 'Usuário criado com sucesso!',
             'user': {
@@ -123,7 +136,7 @@ def register():
         
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Erro ao criar usuário: {str(e)}")
+        current_app.logger.error(f"Erro ao criar usuário: {str(e)}", exc_info=True)
         return jsonify({'message': 'Erro interno do servidor'}), 500
 
 @bp.route('/login', methods=['POST'])
@@ -142,15 +155,18 @@ def login():
         404: Usuário não encontrado
     """
     try:
+        current_app.logger.info("Tentativa de login")
         data = request.get_json()
         
         if not data or not data.get('email') or not data.get('password'):
+            current_app.logger.warning("Tentativa de login com dados incompletos")
             return jsonify({'message': 'Email e senha são obrigatórios'}), 401
         
         # user = User.query.filter_by(email=data['email']).first()
         user = db.session.execute(select(User).filter_by(email=data['email'])).scalar_one_or_none()
         
         if not user:
+            current_app.logger.warning(f"Tentativa de login com email não cadastrado: {data['email']}")
             return jsonify({'message': 'Credenciais inválidas'}), 401
         
         if user.check_password(data['password']):
@@ -167,6 +183,7 @@ def login():
                 'iat': datetime.utcnow()
             }, jwt_secret, algorithm='HS256')
             
+            current_app.logger.info(f"Login bem-sucedido para usuário: {user.username}")
             return jsonify({
                 'message': 'Login realizado com sucesso',
                 'token': token,
@@ -179,10 +196,11 @@ def login():
                 }
             })
         
+        current_app.logger.warning(f"Tentativa de login com senha incorreta para usuário: {user.username}")
         return jsonify({'message': 'Credenciais inválidas'}), 401
         
     except Exception as e:
-        logging.error(f"Erro no login: {str(e)}")
+        current_app.logger.error(f"Erro no login: {str(e)}", exc_info=True)
         return jsonify({'message': 'Erro interno do servidor'}), 500
 
 @bp.route('/me', methods=['GET'])
@@ -198,6 +216,7 @@ def get_user_profile():
         401: Token ausente/inválido
     """
     user = g.current_user
+    current_app.logger.debug(f"Perfil acessado pelo usuário: {user.username}")
     return jsonify({
         'id': user.id,
         'username': user.username,
@@ -222,12 +241,15 @@ def delete_user(user_id):
     # user = User.query.get(user_id)
     user = db.session.get(User, user_id)
     if not user:
+        current_app.logger.warning(f"Tentativa de exclusão de usuário inexistente: ID {user_id}")
         return jsonify({'message': 'Usuário não encontrado!'}), 404
 
     # Só admins ou o próprio usuário podem excluir
     if not (g.current_user.is_admin() or g.current_user.id == user_id):
+        current_app.logger.warning(f"Usuário {g.current_user.username} tentou excluir outro usuário sem permissão: ID {user_id}")
         return jsonify({'message': 'Acesso negado!'}), 403
 
+    current_app.logger.info(f"Usuário {user.username} (ID {user_id}) excluído por {g.current_user.username}")
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message': 'Usuário excluído com sucesso.'}), 200
@@ -258,34 +280,43 @@ def update_user(user_id):
     # user = User.query.get(user_id)
     user = db.session.get(User, user_id)
     if not user:
+        current_app.logger.warning(f"Tentativa de atualização de usuário inexistente: ID {user_id}")
         return jsonify({'message': 'Usuário não encontrado!'}), 404
 
     # Só admins ou o próprio usuário podem atualizar
     if not (g.current_user.is_admin() or g.current_user.id == user_id):
+        current_app.logger.warning(f"Usuário {g.current_user.username} tentou atualizar outro usuário sem permissão: ID {user_id}")
         return jsonify({'message': 'Acesso negado!'}), 403
 
     data = request.get_json()
+    changes = []
     
     # Atualiza campos permitidos
     if 'username' in data:
         user.username = data['username']
+        changes.append("username")
     if 'email' in data:
         user.email = data['email']
+        changes.append("email")
         
     # Verificação de senha para alteração
     if 'new_password' in data:
         # Se não for admin, exige senha atual
         if not g.current_user.is_admin() or g.current_user.id == user_id:
             if 'current_password' not in data or not user.check_password(data['current_password']):
+                current_app.logger.warning(f"Tentativa de alteração de senha com senha atual incorreta para usuário: {user.username}")
                 return jsonify({'message': 'Senha atual incorreta!'}), 400
                 
         user.set_password(data['new_password'])
+        changes.append("password")
         
     # Apenas admin pode alterar user_type
     if g.current_user.is_admin() and 'user_type' in data:
         user.user_type = data['user_type']
+        changes.append("user_type")
 
     db.session.commit()
+    current_app.logger.info(f"Usuário {user.username} (ID {user_id}) atualizado por {g.current_user.username}. Campos alterados: {', '.join(changes)}")
     return jsonify({'message': 'Usuário atualizado com sucesso.'}), 200
 
 @bp.route('/health', methods=['GET'])
@@ -298,8 +329,10 @@ def health_check():
                 # result = db.session.execute(db.text('SELECT 1'))
                 db.session.execute(text('SELECT 1'))
                 db_status = "connected"
+                current_app.logger.debug("Health check realizado com sucesso: banco de dados conectado")
             except Exception as e:
                 db_status = f"error: {str(e)}"
+                current_app.logger.error(f"Health check falhou na conexão com o banco de dados: {str(e)}")
         return jsonify({
             'status': 'healthy',
             'timestamp': datetime.utcnow().isoformat(),
@@ -308,6 +341,7 @@ def health_check():
             'version': '1.0.0'
         }), 200
     except Exception as e:
+        current_app.logger.error(f"Health check falhou: {str(e)}")
         return jsonify({
             'status': 'unhealthy',
             'error': str(e),
@@ -317,6 +351,7 @@ def health_check():
 @bp.route('/status', methods=['GET'])
 def status():
     """Status endpoint simplificado"""
+    current_app.logger.debug("Status endpoint acessado")
     return jsonify({
         'message': 'AuditaIA API está funcionando',
         'timestamp': datetime.utcnow().isoformat(),
@@ -342,14 +377,17 @@ def first_setup():
         }
     """
     try:
+        current_app.logger.info("Tentativa de configuração inicial (first-setup)")
         data = request.get_json()
         
         # Validar dados básicos
         if not all([data.get('username'), data.get('email'), data.get('password')]):
+            current_app.logger.warning("Tentativa de configuração inicial com dados incompletos")
             return jsonify({'message': 'Username, email e password são obrigatórios!'}), 400
             
         # Verificar se já existem usuários
         if db.session.execute(select(User)).first():
+            current_app.logger.warning("Tentativa de configuração inicial quando já existem usuários")
             return jsonify({'message': 'Sistema já possui usuários cadastrados!'}), 409
             
         # Criar primeiro admin
@@ -363,6 +401,7 @@ def first_setup():
         db.session.add(admin_user)
         db.session.commit()
         
+        current_app.logger.info(f"Primeiro administrador criado com sucesso: {admin_user.username}")
         return jsonify({
             'message': 'Primeiro administrador criado com sucesso!',
             'user': {
@@ -374,10 +413,11 @@ def first_setup():
         
     except OperationalError:
         db.session.rollback()
+        current_app.logger.error("Erro operacional no banco de dados durante configuração inicial")
         return jsonify({'message': "Erro de banco de dados. Verifique se o banco foi inicializado."}), 500
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Erro: {str(e)}")
+        current_app.logger.error(f"Erro na configuração inicial: {str(e)}", exc_info=True)
         return jsonify({'message': 'Erro interno do servidor'}), 500
 
 @click.command('init-db')
@@ -390,9 +430,12 @@ def init_db_command():
         
         # Mostra as tabelas que serão criadas
         click.echo(f"Modelos registrados: {db.Model.registry._class_registry.keys()}")
+        current_app.logger.info(f"Inicializando banco de dados. Modelos: {db.Model.registry._class_registry.keys()}")
         
         # Cria as tabelas
         db.create_all()
+        current_app.logger.info("Banco de dados inicializado com sucesso")
         click.echo('Banco de dados inicializado com sucesso.')
     except Exception as e:
+        current_app.logger.error(f"Erro ao inicializar banco de dados: {str(e)}", exc_info=True)
         click.echo(f'ERRO ao inicializar banco: {str(e)}')
