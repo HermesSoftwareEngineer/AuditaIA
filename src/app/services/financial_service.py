@@ -1,68 +1,68 @@
 """
-Service for financial data analysis and calculations
+Serviço para análise e cálculos de dados financeiros
 """
 from typing import Dict, List, Any
 
 def analyze_movements(current_movements: Dict, previous_movements: Dict) -> Dict:
     """
-    Analyze financial movement comparisons.
-    Calculates financial metrics and provides insights on the differences 
-    between current and previous month's movements.
+    Analisa comparações de movimentações financeiras.
+    Calcula métricas financeiras e fornece insights sobre as diferenças
+    entre os movimentos do mês atual e do mês anterior.
     
     Args:
-        current_movements: The current period movements data
-        previous_movements: The previous period movements data
+        current_movements: Dados de movimentações do período atual
+        previous_movements: Dados de movimentações do período anterior
         
     Returns:
-        dict: Analysis results including metrics and insights
+        dict: Resultados da análise incluindo métricas e insights
     """
     current_items = current_movements.get('lista', [])
     previous_items = previous_movements.get('lista', [])
     
-    # Calculate totals directly without intermediate lists to avoid any accumulation issues
+    # Calcula totais diretamente sem listas intermediárias para evitar problemas de acumulação
     total_current = 0
     for item in current_items:
         item_total = sum(detail.get('valor', 0) for detail in item.get('detalhes_resumo', []))
         total_current += item_total
     
-    # For previous month, be extra careful about duplicates
-    # Use a set to track clients we've already counted
+    # Para o mês anterior, seja extremamente cuidadoso com duplicatas
+    # Use um conjunto para rastrear clientes que já contamos
     counted_clients = set()
     total_previous = 0
     
     for item in previous_items:
-        client = item.get('cliente', '')
-        # Skip if we've already counted this client
-        if client in counted_clients:
-            continue
+        # client = item.get('cliente', '')
+        # # Pula se já contamos este cliente
+        # if client in counted_clients:
+        #     continue
             
-        counted_clients.add(client)
+        # counted_clients.add(client)
         item_total = sum(detail.get('valor', 0) for detail in item.get('detalhes_resumo', []))
         total_previous += item_total
 
-    # Calculate the absolute variation (change in value)
+    # Calcula a variação absoluta (mudança no valor)
     variacao_absoluta = total_current - total_previous
     
-    # Calculate percentage change - handle the case where both values are negative
+    # Calcula a variação percentual - trata o caso onde ambos os valores são negativos
     variacao_percentual = 0
     if total_previous != 0:
-        # If both are negative, we need to consider the magnitude change
+        # Se ambos são negativos, precisamos considerar a mudança de magnitude
         if total_current < 0 and total_previous < 0:
-            # Calculate change in magnitude (absolute values)
+            # Calcula a mudança na magnitude (valores absolutos)
             magnitude_atual = abs(total_current)
             magnitude_anterior = abs(total_previous)
             
             if magnitude_atual < magnitude_anterior:
-                # Magnitude decreased (getting closer to zero) - this is a reduction
+                # Magnitude diminuiu (ficando mais próximo de zero) - isso é uma redução
                 variacao_percentual = -((magnitude_anterior - magnitude_atual) / magnitude_anterior * 100)
             else:
-                # Magnitude increased (getting further from zero) - this is an increase
+                # Magnitude aumentou (ficando mais longe de zero) - isso é um aumento
                 variacao_percentual = ((magnitude_atual - magnitude_anterior) / magnitude_anterior * 100)
         else:
-            # Normal percentage calculation for other cases
+            # Cálculo percentual normal para outros casos
             variacao_percentual = (variacao_absoluta / abs(total_previous)) * 100
     
-    # Add descriptions to variation - make sure it matches the sign of variacao_percentual
+    # Adiciona descrições à variação - certifique-se de que corresponde ao sinal de variacao_percentual
     variacao_descricao = "sem alteração"
     if variacao_percentual > 0:
         variacao_descricao = f"aumento de {abs(round(variacao_percentual, 2))}%"
@@ -93,24 +93,24 @@ def analyze_movements(current_movements: Dict, previous_movements: Dict) -> Dict
     
 def calculate_client_metrics(client_data: Dict, previous_client_data: Dict = None) -> Dict:
     """
-    Calculate financial metrics for a specific client
+    Calcula métricas financeiras para um cliente específico
     
     Args:
-        client_data: Current period data for client
-        previous_client_data: Previous period data for client (optional)
+        client_data: Dados do período atual para o cliente
+        previous_client_data: Dados do período anterior para o cliente (opcional)
         
     Returns:
-        dict: Financial metrics for the client
+        dict: Métricas financeiras para o cliente
     """
-    # Calculate current total
+    # Calcula o total atual
     current_total = sum(detail.get('valor', 0) for detail in client_data.get('detalhes_resumo', []))
     
-    # Calculate previous total if data exists
+    # Calcula o total anterior se os dados existirem
     prev_total = 0
     if previous_client_data:
         prev_total = sum(detail.get('valor', 0) for detail in previous_client_data.get('detalhes_resumo', []))
     
-    # Calculate difference and percentage change
+    # Calcula a diferença e a variação percentual
     difference = current_total - prev_total
     percentage_change = 0
     if prev_total != 0:
