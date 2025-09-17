@@ -193,13 +193,17 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
         # Gerar insights com IA apenas se houver diferença entre os saldos
         insights = ""
         if metrics.get("diferenca") != 0:
-            insights = LLMAnalysisService.get_client_insights(
-                client_name,
-                dados_atuais,
-                dados_anteriores,
-                metrics,
-                use_real_llm
-            )
+            try:
+                insights = LLMAnalysisService.get_client_insights(
+                    client_name,
+                    dados_atuais,
+                    dados_anteriores,
+                    metrics,
+                    use_real_llm
+                )
+            except Exception as e:
+                current_app.logger.error(f"Erro ao gerar insights: {str(e)}")
+                insights = "Não foi possível gerar insights com IA. Erro no processamento."
 
         client_analysis = {
             'cliente': client_name,
@@ -250,13 +254,17 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
             # Gerar insights com IA apenas se houver diferença entre os saldos
             insights = ""
             if metrics.get("diferenca") != 0:
-                insights = LLMAnalysisService.get_client_insights(
-                    client_name,
-                    dados_atuais,
-                    dados_anteriores,
-                    metrics,
-                    use_real_llm
-                )
+                try:
+                    insights = LLMAnalysisService.get_client_insights(
+                        client_name,
+                        dados_atuais,
+                        dados_anteriores,
+                        metrics,
+                        use_real_llm
+                    )
+                except Exception as e:
+                    current_app.logger.error(f"Erro ao gerar insights: {str(e)}")
+                    insights = "Não foi possível gerar insights com IA. Erro no processamento."
 
             # Define a análise desse cliente
             client_analysis = {
@@ -289,13 +297,17 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
             # Gerar insights com IA apenas se houver diferença entre os saldos
             insights = ""
             if metrics.get("diferenca") != 0:
-                insights = LLMAnalysisService.get_client_insights(
-                    client_name,
-                    dados_atuais,
-                    dados_anteriores,
-                    metrics,
-                    use_real_llm
-                )
+                try:
+                    insights = LLMAnalysisService.get_client_insights(
+                        client_name,
+                        dados_atuais,
+                        dados_anteriores,
+                        metrics,
+                        use_real_llm
+                    )
+                except Exception as e:
+                    current_app.logger.error(f"Erro ao gerar insights: {str(e)}")
+                    insights = "Não foi possível gerar insights com IA. Erro no processamento."
 
             client_analysis = {
                 'cliente': client_name,
