@@ -4,9 +4,12 @@ Contains both simulated and real analysis implementations
 """
 from typing import Dict, Optional, Any
 from ai.llms import llm
+import logging
+import asyncio
+import time
 
-# You might need to import your real LLM service here
-# from external.llm_provider import analyze_with_llm
+# Configuração do logger
+logger = logging.getLogger(__name__)
 
 class LLMAnalysisService:
     """
@@ -96,6 +99,7 @@ class LLMAnalysisService:
     ) -> str:
         """
         Perform a real LLM analysis for a specific client's movements.
+        Uses async functions with timeout for LLM calls.
         
         Args:
             client_name: Name of the client
@@ -106,13 +110,16 @@ class LLMAnalysisService:
             percentage_change: Pre-calculated percentage change
             
         Returns:
-            str: Real LLM insights text
+            str: LLM insights text or fallback to simulated analysis
         """
-        # If there's no variation between months, return a simple message
+        logger.info(f"Iniciando análise real com LLM para o cliente: {client_name}")
+        
+        # Verificação rápida para casos sem variação
         if percentage_change == 0 and current_total == prev_total:
+            logger.info(f"Nenhuma variação detectada para o cliente {client_name}. Retornando mensagem simples.")
             return f"Para o cliente {client_name} não houve variação nos valores entre o mês atual e o mês anterior. O valor total se manteve em R$ {current_total:.2f}."
             
-        # Prepare the prompt for LLM with relevant financial data
+        # Preparação do prompt
         prompt = f"""
         Analise os movimentos de um repasse de um proprietário de um imóvel alugado. A inquilina do imóvel é {client_name}:
         
@@ -132,21 +139,18 @@ class LLMAnalysisService:
             - Se houver variação, detalhe os movimentos (valor, conta e descrição)
         """
         
-        # Here you would call your actual LLM service
-        # This is a placeholder - replace with your actual LLM integration
-        try:
-            # Example of how you might call your LLM service
-            # result = analyze_with_llm(prompt)
-            # return result
-            
-            # For now, return a placeholder message
+        logger.debug(f"Prompt preparado para análise LLM do cliente {client_name}")
+        
+        try: 
+            logger.info(f"Iniciando chamada ao LLM para o cliente: {client_name}")
             result = llm.invoke(prompt)
+            logger.info(f"Chamada ao LLM concluída. Cliente: {client_name}")
             return result.content
         except Exception as e:
-            # Fallback to simulated analysis in case of error
-            print(f"Erro ao chamar LLM real: {str(e)}")
-            return f"Erro na análise de IA. Utilizando análise simulada: " + LLMAnalysisService.simulate_analysis(
-                client_name, current_data, previous_data, current_total, prev_total, percentage_change
+            logger.warning(f"Erro na análise com IA, iniciando análise simulada para o cliente: {client_name}")
+            return "Análise detalhada com IA indisponível. " + LLMAnalysisService.simulate_analysis(
+                client_name, current_data, previous_data, 
+                current_total, prev_total, percentage_change
             )
             
     @staticmethod

@@ -173,6 +173,11 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
     analyses_results = []
     set_clients_mes_atual = set()
 
+    # Ajustando lista de clientes clientes mes anterior
+    set_clients_mes_anterior = set()
+    for item in condensed_previous_data.get('lista', []):
+        set_clients_mes_anterior.add(item.get('cliente'))
+
     # Adicionando clientes do mês atual
     for item in condensed_current_data.get('lista', []):
         client_name = item.get('cliente')
@@ -186,9 +191,23 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
             "saldo": item.get("saldo")
         }
 
-        dados_anteriores = {}
+        if client_name in set_clients_mes_anterior:
+            for item in condensed_previous_data.get('lista', []):
+                if client_name == item.get('cliente'):
+                    dados_anteriores = {
+                        "data_pagamento_cliente": item.get("data_pagamento_cliente"),
+                        "data_pagamento_repasse": item.get("data_pagamento_repasse"),
+                        "data_vencimento_cliente": item.get("data_vencimento_cliente"),
+                        "data_vencimento_repasse": item.get("data_vencimento_repasse"),
+                        "detalhes_resumo": item.get("detalhes_resumo"),
+                        "saldo": item.get("saldo")
+                    }
+                    break
+        else:
+            dados_anteriores = {}
+
         # Aqui deveria calcular as métricas usando a função calculate_client_metrics
-        metrics = calculate_client_metrics(dados_atuais, dados_anteriores)  # Passando dados vazios para anterior
+        metrics = calculate_client_metrics(dados_atuais, dados_anteriores) 
         
         # Gerar insights com IA apenas se houver diferença entre os saldos
         insights = ""
@@ -215,108 +234,5 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
         
         set_clients_mes_atual.add(client_name)
         analyses_results.append(client_analysis)
-
-    # Analisando clientes do mês anterior
-    for item in condensed_previous_data.get("lista", []):
-        client_name = item.get("cliente")
-
-        dados_anteriores = {
-            "data_pagamento_cliente": item.get("data_pagamento_cliente"),
-            "data_pagamento_repasse": item.get("data_pagamento_repasse"),
-            "data_vencimento_cliente": item.get("data_vencimento_cliente"),
-            "data_vencimento_repasse": item.get("data_vencimento_repasse"),
-            "detalhes_resumo": item.get("detalhes_resumo"),
-            "saldo": item.get("saldo")
-        }
-
-        # Verifica se esse cliente tem dados no mes atual
-        if client_name in set_clients_mes_atual:
-            # Pega os dados atuais (nome da variável corrigido)
-            item_mes_atual = None
-            for i in condensed_current_data.get("lista", []):
-                if i.get("cliente") == client_name:
-                    item_mes_atual = i
-                    break
-
-            # Armazena corretamente na variável
-            dados_atuais = {
-                "data_pagamento_cliente": item_mes_atual.get("data_pagamento_cliente"),
-                "data_pagamento_repasse": item_mes_atual.get("data_pagamento_repasse"),
-                "data_vencimento_cliente": item_mes_atual.get("data_vencimento_cliente"),
-                "data_vencimento_repasse": item_mes_atual.get("data_vencimento_repasse"),
-                "detalhes_resumo": item_mes_atual.get("detalhes_resumo"),
-                "saldo": item_mes_atual.get("saldo")
-            }
-
-            # Calcular métricas financeiras comparativas
-            metrics = calculate_client_metrics(dados_atuais, dados_anteriores)
-            
-            # Gerar insights com IA apenas se houver diferença entre os saldos
-            insights = ""
-            if metrics.get("diferenca") != 0:
-                try:
-                    insights = LLMAnalysisService.get_client_insights(
-                        client_name,
-                        dados_atuais,
-                        dados_anteriores,
-                        metrics,
-                        use_real_llm
-                    )
-                except Exception as e:
-                    current_app.logger.error(f"Erro ao gerar insights: {str(e)}")
-                    insights = "Não foi possível gerar insights com IA. Erro no processamento."
-
-            # Define a análise desse cliente
-            client_analysis = {
-                'cliente': client_name,
-                'dados_atuais': dados_atuais,
-                'dados_anteriores': dados_anteriores,
-                'metricas_financeiras': metrics,
-                'insights_llm': insights
-            }
-
-            # Atualiza a análise existente
-            for index, i in enumerate(analyses_results):
-                if i.get("cliente", "") == client_name:
-                    analyses_results[index] = client_analysis
-                    break
-        
-        # Caso não tenha dados no mes atual
-        else:
-            dados_atuais = {
-                "data_pagamento_cliente": "",
-                "data_pagamento_repasse": "",
-                "data_vencimento_cliente": "",
-                "data_vencimento_repasse": "",
-                "detalhes_resumo": [],
-                "saldo": 0,
-            }
-
-            # Calcular métricas financeiras apenas com dados anteriores
-            metrics = calculate_client_metrics(dados_atuais, dados_anteriores)
-            # Gerar insights com IA apenas se houver diferença entre os saldos
-            insights = ""
-            if metrics.get("diferenca") != 0:
-                try:
-                    insights = LLMAnalysisService.get_client_insights(
-                        client_name,
-                        dados_atuais,
-                        dados_anteriores,
-                        metrics,
-                        use_real_llm
-                    )
-                except Exception as e:
-                    current_app.logger.error(f"Erro ao gerar insights: {str(e)}")
-                    insights = "Não foi possível gerar insights com IA. Erro no processamento."
-
-            client_analysis = {
-                'cliente': client_name,
-                'dados_atuais': dados_atuais,
-                'dados_anteriores': dados_anteriores,
-                'metricas_financeiras': metrics,
-                'insights_llm': insights
-            }
-
-            analyses_results.append(client_analysis)
 
     return analyses_results
