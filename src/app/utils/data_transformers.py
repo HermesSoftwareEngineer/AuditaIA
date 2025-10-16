@@ -124,7 +124,8 @@ def condense_movements(movements_data, proprietario):
         else:
             # Cria nova entrada para o contrato
             movements_by_contract[codigo_contrato] = {
-                "codigo": movement.get("codigo"),
+                "codigo": codigo_contrato,  # ✅ Código do contrato
+                "codigo_movimento": movement.get("codigo"),  # ID único do movimento
                 "data_vencimento_cliente": movement.get("datavencimento"),
                 "data_pagamento_cliente": movement.get("datapagamento"),
                 "saldo": saldo,
