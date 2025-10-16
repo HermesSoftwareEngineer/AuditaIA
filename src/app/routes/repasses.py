@@ -171,18 +171,21 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
         list: Lista com análises por cliente
     """
     analyses_results = []
-    set_clients_mes_atual = set()
 
-    # Ajustando lista de clientes clientes mes anterior
-    set_clients_mes_anterior = set()
+    # Cria um dicionário de contratos do mês anterior para lookup rápido
+    contracts_previous_month = {}
     for item in condensed_previous_data.get('lista', []):
-        set_clients_mes_anterior.add(item.get('cliente'))
+        codigo_contrato = item.get('codigo')
+        if codigo_contrato:
+            contracts_previous_month[codigo_contrato] = item
 
-    # Adicionando clientes do mês atual
+    # Processa clientes do mês atual
     for item in condensed_current_data.get('lista', []):
         client_name = item.get('cliente')
+        codigo_contrato = item.get('codigo')
 
         dados_atuais = {
+            "codigo_contrato": codigo_contrato,
             "data_pagamento_cliente": item.get("data_pagamento_cliente"),
             "data_pagamento_repasse": item.get("data_pagamento_repasse"),
             "data_vencimento_cliente": item.get("data_vencimento_cliente"),
@@ -191,22 +194,22 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
             "saldo": item.get("saldo")
         }
 
-        if client_name in set_clients_mes_anterior:
-            for item in condensed_previous_data.get('lista', []):
-                if client_name == item.get('cliente'):
-                    dados_anteriores = {
-                        "data_pagamento_cliente": item.get("data_pagamento_cliente"),
-                        "data_pagamento_repasse": item.get("data_pagamento_repasse"),
-                        "data_vencimento_cliente": item.get("data_vencimento_cliente"),
-                        "data_vencimento_repasse": item.get("data_vencimento_repasse"),
-                        "detalhes_resumo": item.get("detalhes_resumo"),
-                        "saldo": item.get("saldo")
-                    }
-                    break
+        # Busca dados anteriores pelo código do contrato
+        if codigo_contrato and codigo_contrato in contracts_previous_month:
+            previous_item = contracts_previous_month[codigo_contrato]
+            dados_anteriores = {
+                "codigo_contrato": codigo_contrato,
+                "data_pagamento_cliente": previous_item.get("data_pagamento_cliente"),
+                "data_pagamento_repasse": previous_item.get("data_pagamento_repasse"),
+                "data_vencimento_cliente": previous_item.get("data_vencimento_cliente"),
+                "data_vencimento_repasse": previous_item.get("data_vencimento_repasse"),
+                "detalhes_resumo": previous_item.get("detalhes_resumo"),
+                "saldo": previous_item.get("saldo")
+            }
         else:
             dados_anteriores = {}
 
-        # Aqui deveria calcular as métricas usando a função calculate_client_metrics
+        # Calcula as métricas usando a função calculate_client_metrics
         metrics = calculate_client_metrics(dados_atuais, dados_anteriores) 
         
         # Gerar insights com IA apenas se houver diferença entre os saldos
@@ -226,13 +229,13 @@ def create_client_analyses(condensed_current_data, condensed_previous_data, use_
 
         client_analysis = {
             'cliente': client_name,
+            'codigo_contrato': codigo_contrato,
             'dados_atuais': dados_atuais,
             'dados_anteriores': dados_anteriores,
             'metricas_financeiras': metrics,
             'insights_llm': insights
         }
         
-        set_clients_mes_atual.add(client_name)
         analyses_results.append(client_analysis)
 
     return analyses_results
