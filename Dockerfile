@@ -21,7 +21,7 @@ COPY src/models/data/prompts.db /app/models/data/prompts.db
 # COPY ./build.sh .
 # RUN bash ./build.sh
 
-EXPOSE 5000
+EXPOSE 8080
 
 # Gunicorn direto, sem FLASK_APP redundante
-CMD ["gunicorn", "--chdir", "src", "app:create_app()", "--bind", "0.0.0.0:5000"]
+CMD ["gunicorn", "--chdir", "src", "app:create_app()", "--bind", "0.0.0.0:8080"]
