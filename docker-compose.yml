@@ -3,7 +3,7 @@ services:
     build: .
     container_name: minha-api
     ports:
-      - "5000:5000" 
+      - "8080:8080" 
     secrets:
       - google_credentials.json
     environment:
